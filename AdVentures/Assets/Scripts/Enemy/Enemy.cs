@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : PooledMonoBehaviour, ITakeDamage {
 
+    private EnemyGroup group;
+
     public void TakeDamage(int amount)
     {
         throw new System.NotImplementedException();
@@ -19,8 +21,14 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage {
             transform.position = new Vector3(transform.position.x + 1, transform.position.y, 0);
     }
 
+    public void SetGroup(EnemyGroup group)
+    {
+        this.group = group;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        ReturnToPool();
+        group.ReportEnemyDeath(this);
+        ReturnToPool();        
     }
 }

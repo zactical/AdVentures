@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class EnemyGroup : MonoBehaviour
 {
+    public int SpawnNumber { get; private set; }
+
     private List<Enemy> enemies = new List<Enemy>();
+    private EnemyManager enemyManager;
 
     private int groupCenterX;
     private int groupCenterY;
@@ -15,15 +18,36 @@ public class EnemyGroup : MonoBehaviour
     private int minMovementX = -3;
     private int maxMovementX = 3;
 
-    private void Awake()
+    private int currentActiveEnemies;
+
+    private void OnValidate()
     {
-        enemies = GetComponentsInChildren<Enemy>().ToList();        
+        var number = this.name.Replace("EnemyGroup_", "");
+        SpawnNumber = int.Parse(number);
     }
 
-    public void Initialize(int startingX, int startingY)
+    private void Start()
     {
+        enemies = GetComponentsInChildren<Enemy>().ToList();
+        ResetGroup();
+
+        foreach (var enemy in enemies)
+        {
+            enemy.SetGroup(this);
+        }
+    }
+
+    public void Initialize(EnemyManager manager, int startingX, int startingY)
+    {
+        enemyManager = manager;
         groupCenterX = startingX;
         groupCenterY = startingY;
+    }
+
+    public void ResetGroup()
+    {
+        var allRows = GetComponentsInChildren<EnemyRow>();
+        currentActiveEnemies = allRows.Sum(x => x.EnemyCount);
     }
 
     public void AddEnemy(Enemy enemy)
@@ -39,6 +63,14 @@ public class EnemyGroup : MonoBehaviour
         {
             enemy.Move(directionX, directionY);
         }
+    }
+
+    public void ReportEnemyDeath(Enemy enemy)
+    {
+        currentActiveEnemies--;
+
+        if (currentActiveEnemies <= 0)
+            enemyManager.SpawnNextGroup();
     }
 
     private void UpdateDirection()
