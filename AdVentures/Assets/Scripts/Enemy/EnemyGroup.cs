@@ -19,6 +19,7 @@ public class EnemyGroup : MonoBehaviour
     private int maxMovementX = 3;
 
     private int currentActiveEnemies;
+    private List<Enemy> deadEnemies = new List<Enemy>();
 
     private void OnValidate()
     {
@@ -67,6 +68,10 @@ public class EnemyGroup : MonoBehaviour
 
     public void ReportEnemyDeath(Enemy enemy)
     {
+        if (deadEnemies.Contains(enemy))
+            return;
+
+        deadEnemies.Add(enemy);
         currentActiveEnemies--;
 
         if (currentActiveEnemies <= 0)

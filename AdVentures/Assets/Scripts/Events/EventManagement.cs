@@ -16,26 +16,26 @@ public static class Events
         actionList[name].Raise();
     }
 
-    public static void Raise<T>(T data, GameEventsEnum name)// where T : struct
+    public static void Raise<T>(GameEventsEnum name, T data)// where T : struct
     {
         AddIfNotExists<T>(name);
 
         actionList[name].Raise(data);
     }
 
-    public static void Raise<T, V>(T data, V data2, GameEventsEnum name)// where T : struct
+    public static void Raise<T, V>(GameEventsEnum name, T data, V data2)// where T : struct
     {
         AddIfNotExists<T, V>(name);
         actionList[name].Raise(data, data2);
     }
 
-    public static void Raise<T, V, U>(T data, V data2, U data3, GameEventsEnum name)// where T : struct
+    public static void Raise<T, V, U>(GameEventsEnum name, T data, V data2, U data3)// where T : struct
     {
         AddIfNotExists<T, V, U>(name);
         actionList[name].Raise(data, data2, data3);
     }
 
-    public static void Raise<T, V, U, X>(T data, V data2, U data3, X data4, GameEventsEnum name)// where T : struct
+    public static void Raise<T, V, U, X>(GameEventsEnum name, T data, V data2, U data3, X data4)// where T : struct
     {
         AddIfNotExists<T, V, U>(name);
         actionList[name].Raise(data, data2, data3, data4);
@@ -312,44 +312,6 @@ public class EventController<T, V, U, X> : EventControllerBase
 
 public enum GameEventsEnum
 {
-    // game stats
-    DataGoldChanged = 1,
-    DataAnimalWeightChanged = 2,
-    DataGoldCostModifier = 3,
-    DataWeightModifier = 4,
-    DataGoldProduction = 5,
-    DataAnimalSoldChanged = 6,
-    DataTotalFoodBought = 7,
-    DataTotalWeightAcquired = 8,
-    DataWeightProduction = 9,
-
-    // animal stats
-    DataAnimalDamageChanged = 10,
-    DataAnimalArmorChanged = 11,
-    DataAnimalSpeedChanged = 12,
-    DataAnimalCritChanceChanged = 13,
-    DataAnimalCritDamageChanged = 14,
-    
-    // game events
-    EventUpgrade = 15,
-    EventAnimalDeath = 16,    
-   // EventLootDropped = 17,
-    EventLootSpawned = 18,
-    EventLootPickedUp = 19,
-    EventGoldGained = 20,
-    EventLootGained = 31,
-    EventShopItemPurchased = 21,
-    EventAnimalSold = 22,
-
-    // level management
-    EventGamePauseToggle = 23,
-    EventLoadLevel = 24,
-    EventStartLevel = 25,
-    EventAdvanceLevel = 26,
-    EventGameOver = 27,
-    EventGameRestart = 28,
-
-    // misc
-    EventCreateDamageText = 29,
-    EventLaunchItem = 30
+    None = 0,
+    LootPickedUp = 1
 }

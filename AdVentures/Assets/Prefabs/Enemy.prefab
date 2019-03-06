@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 4139991789519620}
   - component: {fileID: 61800429529392882}
   - component: {fileID: 6595654545359148982}
+  - component: {fileID: 6741428626943445052}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -151,3 +152,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPoolSize: 50
+--- !u!114 &6741428626943445052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890959211393806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b4b08c25b80f345a141f84d780d185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemToSpawn: {fileID: 8562747392902324348, guid: d8a0c26440872be4c80e355c1542a034,
+    type: 3}
+  dropChancePercent: 50

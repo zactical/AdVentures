@@ -2,18 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandardShot : IWeapon
+public class StandardShot : ShotBase
 {
-    //[Header("Shooting")]
-   // [SerializeField]
-   // private Projectile projectile;
-   //[SerializeField]
-   //private Transform shootFromLocation;
-    
-   // [SerializeField]
-    //float shootForce = 300f;
-
-    public virtual void Fire(Projectile projectile, float force, IShotLocations shotLocations)
+    public override void Fire(Projectile projectile, float force, IShotLocations shotLocations)
     {
         var shot = projectile.Get<Projectile>(shotLocations.Normal().position, Quaternion.identity);
         //  shot.Launch(force);

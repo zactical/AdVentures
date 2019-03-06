@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IShotLocations
     [SerializeField]
     float shootSpeed = 15f;
  //   [SerializeField]
-    private List<IWeapon> currentWeapons;
+    private List<WeaponType> currentWeapons;
 
     [Header("Shot Locations")]
     [SerializeField]
@@ -29,12 +29,24 @@ public class Player : MonoBehaviour, IShotLocations
     private float shotThreshold = 10f;
     private float shotForce = 300f;
 
+    public List<WeaponType> CurrentWeapons => currentWeapons;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        currentWeapons = new List<IWeapon>();
-        currentWeapons.Add(new StandardShot());
-        currentWeapons.Add(new AngledShot());
+        currentWeapons = new List<WeaponType>();
+        currentWeapons.Add(new WeaponType(WeaponUpgradeTypeEnum.Normal, null));
+       // currentWeapons.Add(new AngledShot());
+    }
+
+    private void Update()
+    {
+        foreach (var item in currentWeapons)
+        {
+            item.UpdateTime(Time.deltaTime);
+            if (item.ExpiresInSeconds.HasValue && item.ExpiresInSeconds <= 0)
+                StartCoroutine(RemoveWeaponAtEndOfFrame(item));
+        }
     }
 
     private void LateUpdate()
@@ -48,7 +60,7 @@ public class Player : MonoBehaviour, IShotLocations
         {
             foreach (var weapon in currentWeapons)
             {
-                weapon.Fire(projectile, shotForce, this);
+                ShotFactory.Fire(weapon.Weapon, projectile, shotForce, this);
             }
         }
     }
@@ -79,5 +91,17 @@ public class Player : MonoBehaviour, IShotLocations
     public Transform Right()
     {
         return right;
+    }
+
+    public void AddWeapon(WeaponUpgradeTypeEnum type, float? expireInSeconds = null)
+    {
+        currentWeapons.Add(new WeaponType(type, expireInSeconds));
+    }
+
+    private IEnumerator RemoveWeaponAtEndOfFrame(WeaponType type)
+    {
+        yield return new WaitForEndOfFrame();
+
+        currentWeapons.Remove(type);
     }
 }

@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : PooledMonoBehaviour, ITakeDamage {
 
     private EnemyGroup group;
+
+    private List<IDeathEvent> deathEvents;
+
+    private void Awake()
+    {
+        deathEvents = GetComponentsInChildren<IDeathEvent>().ToList();
+    }
 
     public void TakeDamage(int amount)
     {
@@ -28,7 +36,16 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        RaiseDeathEvents();
         group.ReportEnemyDeath(this);
         ReturnToPool();        
+    }
+
+    private void RaiseDeathEvents()
+    {
+        foreach (var deathEvent in deathEvents)
+        {
+            deathEvent.Raise();
+        }
     }
 }

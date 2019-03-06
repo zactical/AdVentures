@@ -5,7 +5,7 @@ using System.Linq;
 
 public class EnemyManager : MonoBehaviour {
 
-    [SerializeField]
+   // [SerializeField]
     private List<EnemyGroup> enemyGroupPrefabs;
     [SerializeField]
     private Transform leftBound;
@@ -28,6 +28,9 @@ public class EnemyManager : MonoBehaviour {
     {
         leftBoundX = Mathf.RoundToInt(leftBound.transform.position.x);
         rightBoundX = Mathf.RoundToInt(rightBound.transform.position.x);
+
+        // enemyGroupPrefabs = GameUtils.GetAllInstances<EnemyGroup>().Where(x => x.SpawnNumber != 0).ToList();
+        enemyGroupPrefabs = Resources.LoadAll<EnemyGroup>("").ToList();
     }
 
     // Use this for initialization
