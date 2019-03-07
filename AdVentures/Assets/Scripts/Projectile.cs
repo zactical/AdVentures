@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : PooledMonoBehaviour
 {
+    public ProjectileUpgradeTypeEnum projectileType;
+
     [SerializeField]
     private float defaultForceAmount = 100f;
 
