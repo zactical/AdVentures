@@ -21,6 +21,7 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
     private float shotThreshold = 10f;
     private float shotForce = 300f;
     private Projectile projectile;
+    private bool isShootingDisabled;
 
     private List<WeaponType> currentWeapons = new List<WeaponType>();
 
@@ -52,6 +53,9 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
 
     private bool CanShoot()
     {
+        if (isShootingDisabled)
+            return false;
+
         lastShot += Time.deltaTime * shootSpeed;
 
         if (lastShot > shotThreshold)
@@ -100,6 +104,11 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
     public void SetProjectile(Projectile projectile)
     {
         this.projectile = projectile;
+    }
+
+    public void ToggleShootingEnabled(bool isEnabled)
+    {
+        isShootingDisabled = !isEnabled;
     }
 
     #endregion

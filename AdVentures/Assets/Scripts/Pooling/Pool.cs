@@ -25,6 +25,11 @@ public class Pool : MonoBehaviour
         return pool;
     }
 
+    public static void ClearPools()
+    {
+        pools.Clear();
+    }
+
     public T Get<T>() where T : PooledMonoBehaviour
     {
         if (objects.Count == 0)

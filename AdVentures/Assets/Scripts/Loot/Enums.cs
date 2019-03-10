@@ -24,7 +24,16 @@ public enum GenericUpgradeEnum
 {
     None,
     ShotSpeed,
-    Projectile
+    Projectile,
+    Immunity
+}
+
+public enum EnemyTypeEnum
+{
+    Normal = 0,
+    Sturdy = 1,
+    Sharpshooter = 2
+
 }
 
 public interface IExpiringUpgrade

@@ -46,3 +46,4 @@ MonoBehaviour:
   enemyCount: 4
   enemyPrefab: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
     type: 3}
+  rowData: []

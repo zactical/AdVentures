@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,5 +18,16 @@ public static class GameUtils
 
         return a;
 
+    }
+
+    public static Enemy GetEnemyPrefabByType(EnemyTypeEnum enemyType)
+    {
+        var enemyPrefabs = Resources.LoadAll<Enemy>("").ToList();
+        var enemy = enemyPrefabs.FirstOrDefault(x => x.EnemyType == enemyType);
+
+        if (enemy == null)
+            Debug.LogError($"No enemy of type: {enemyType} was found in the enemy manager.");
+
+        return enemy;
     }
 }

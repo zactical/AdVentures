@@ -26,7 +26,11 @@ public class Loot : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Events.Raise(GameEventsEnum.LootPickedUp, this);
+        var lootGrabber = collision.gameObject.GetComponent<IGrabLoot>();
+
+        if (lootGrabber != null)
+            lootGrabber.PickUpLoot(this);
+
         Destroy(gameObject);
     }
 }
