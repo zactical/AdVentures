@@ -13,10 +13,12 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     // other enemy systems
     private EnemyGroup group;
+    private EnemyAnimation enemyAnimation;
     private List<IDeathEvent> deathEvents;
     private IEnemyGraphicUpdater enemyGraphics;
     private IEnemyAttack enemyAttack;
     private IEnemyMove enemyMove;
+    
 
     // public accessors
     public int StartingColumn { get; private set; }
@@ -24,10 +26,11 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     private void Awake()
     {
+        enemyAnimation = GetComponentInChildren<EnemyAnimation>();
         deathEvents = GetComponentsInChildren<IDeathEvent>().ToList();
         enemyGraphics = GetComponent<IEnemyGraphicUpdater>();
         enemyAttack = GetComponent<IEnemyAttack>();
-        enemyMove = GetComponent<IEnemyMove>();
+        enemyMove = GetComponent<IEnemyMove>();        
         StartingColumn = Mathf.RoundToInt(transform.position.x);
     }
 
@@ -43,9 +46,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
         if (enemyHealth <= 0)
         {
-            RaiseDeathEvents();
-            group.ReportEnemyDeath(this);
-            ReturnToPool();
+            Kill();
         }
         else
             enemyGraphics?.UpdateGraphics(enemyHealth);
@@ -56,6 +57,21 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
         this.group = group;
     }
 
+    public void FlyAway(float delay)
+    {
+        enemyAnimation.FlyAway(delay);
+    }
+
+    public void Kill(bool awardLoot = true)
+    {
+        if(awardLoot)
+        {
+            RaiseDeathEvents();                     
+        }
+
+        group.ReportEnemyDeath(this);
+        ReturnToPool();
+    }
 
 
     #region Enemy Systems Passthrough

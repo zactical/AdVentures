@@ -78,6 +78,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
         type: 3}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: maxMovesToMake
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2012310792103168850, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}
       propertyPath: rowData.Array.size

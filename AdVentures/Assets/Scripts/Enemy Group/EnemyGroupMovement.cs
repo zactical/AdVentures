@@ -12,7 +12,7 @@ public class EnemyGroupMovement : MonoBehaviour
     private MovementYDirectionEnum directionY = MovementYDirectionEnum.None;
 
     private int minMovementX = -3;
-    private int maxMovementX = 3;
+    private int maxMovementX = 3;    
 
     public void Initialize(int startingX, int startingY)
     {

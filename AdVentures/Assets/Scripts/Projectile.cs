@@ -31,7 +31,7 @@ public class Projectile : PooledMonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var damageableObject = collision.gameObject.GetComponent<ITakeDamage>();
+        var damageableObject = collision.gameObject.GetComponentInParent<ITakeDamage>();
 
         if (damageableObject != null)
             damageableObject.TakeDamage(1);

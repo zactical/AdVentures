@@ -8,11 +8,18 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyGroupAttack))]
 public class EnemyGroup : MonoBehaviour
 {
-    public int SpawnNumber { get; private set; }    
+    public int SpawnNumber { get; private set; }
+
+    [SerializeField]
+    private int maxMovesToMake = 10;
+    private int currentMovesTaken = 0;
+    private bool isCurrentlyExiting = false;
 
     private List<Enemy> enemies = new List<Enemy>();
     private List<Enemy> deadEnemies = new List<Enemy>();
     private int currentActiveEnemies;
+
+
         
     // other enemy systems
     private EnemyManager enemyManager;
@@ -56,7 +63,16 @@ public class EnemyGroup : MonoBehaviour
 
     public void UpdateGroupMovement()
     {
+        if(currentMovesTaken >= maxMovesToMake)
+        {
+            if(isCurrentlyExiting == false)
+                ForceGroupExit();
+
+            return;
+        }
+
         movement.UpdateGroupMovement();
+        currentMovesTaken++;
     }
 
     public void ReportEnemyDeath(Enemy enemy)
@@ -75,5 +91,22 @@ public class EnemyGroup : MonoBehaviour
             enemyManager.SpawnNextGroup();
             Destroy(gameObject);
         }
-    }    
+    } 
+    
+    private void ForceGroupExit()
+    {
+        if (isCurrentlyExiting)
+            return;
+
+        isCurrentlyExiting = true;
+        float delay = 0f;
+        foreach (var enemy in enemies)
+        {
+            if (enemy.gameObject.activeInHierarchy)
+            {
+                enemy.FlyAway(delay);
+                delay = Mathf.Min(delay + .2f, 1.5f);
+            }
+        }
+    }
 }
