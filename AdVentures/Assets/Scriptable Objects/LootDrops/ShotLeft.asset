@@ -18,4 +18,4 @@ MonoBehaviour:
   weaponUpgrade: 2
   projectileUpgrade: 0
   genericUpgrade: 0
-  upgradeDuration: 8
+  upgradeDuration: 12

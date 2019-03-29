@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemToSpawn: {fileID: 8562747392902324348, guid: d8a0c26440872be4c80e355c1542a034,
     type: 3}
-  dropChancePercent: 50
+  dropChancePercent: 25
 --- !u!114 &5483906194838991119
 MonoBehaviour:
   m_ObjectHideFlags: 0

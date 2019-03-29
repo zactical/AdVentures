@@ -58,6 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede1f4d8ea6a8c943a7e73caa2a87704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDelay: 4
+  maxAllowableAttacksPerDelay: 1
 --- !u!114 &5702098933919127676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4abef133f486ae4ea79b3ccec57730d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxMovesToMake: 7
 --- !u!1001 &4586796669714222418
 PrefabInstance:
   m_ObjectHideFlags: 0

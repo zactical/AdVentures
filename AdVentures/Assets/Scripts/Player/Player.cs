@@ -60,6 +60,8 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
         {
             AddGenericUpgrade(loot.LootType.genericUpgrade, loot.LootType.upgradeDuration);
         }
+
+        UIManager.Instance.SetAlert(loot.LootType);
     }
 
     private IEnumerator KillAfterSeconds(float seconds)

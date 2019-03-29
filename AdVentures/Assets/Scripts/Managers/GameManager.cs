@@ -24,10 +24,10 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
-        possibleLoot = ScriptableObjectUtils.GetAllInstances<LootType>().Where(x => x.IsActive == true).ToList();
+    {        
         enemyManager = FindObjectOfType<EnemyManager>();
         player = FindObjectOfType<Player>();
+        SetupLoot();
 
         if (enemyManager == null)
             Debug.LogError("Could not find Enemy Manager");
@@ -47,5 +47,19 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Pool.ClearPools();
+    }
+
+    private void SetupLoot()
+    {
+        possibleLoot = ScriptableObjectUtils.GetAllInstances<LootType>().Where(x => x.IsActive == true).ToList();
+        var staffMembers = ScriptableObjectUtils.GetAllInstances<StaffScriptable>().ToList();
+
+        foreach (var loot in possibleLoot)
+        {
+            var randomUnusedStaff = staffMembers[Random.Range(0, staffMembers.Count)];
+            loot.staff = randomUnusedStaff;
+            
+            staffMembers.Remove(randomUnusedStaff);
+        }
     }
 }

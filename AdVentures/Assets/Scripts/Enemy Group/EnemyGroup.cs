@@ -12,6 +12,11 @@ public class EnemyGroup : MonoBehaviour
 
     [SerializeField]
     private int maxMovesToMake = 10;
+    [SerializeField]
+    private int offsetStartingYPosition = 0;
+    public int OffsetStartingYPosition => offsetStartingYPosition;
+
+
     private int currentMovesTaken = 0;
     private bool isCurrentlyExiting = false;
 

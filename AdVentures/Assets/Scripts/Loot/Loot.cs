@@ -20,7 +20,7 @@ public class Loot : MonoBehaviour
     public void SetLootType(LootType lootType)
     {
         this.lootType = lootType;
-        renderer.sprite = this.lootType.Icon;
+        renderer.sprite = this.lootType.staff.Image;
     }
 
 

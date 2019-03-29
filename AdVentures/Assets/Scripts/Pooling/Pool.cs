@@ -39,6 +39,12 @@ public class Pool : MonoBehaviour
         return pooledObject as T;
     }
 
+    public void WarmPool()
+    {
+        if (objects.Count == 0)
+            GrowPool();
+    }
+
     private void GrowPool()
     {
         for (int i = 0; i < prefab.InitialPoolSize; i++)

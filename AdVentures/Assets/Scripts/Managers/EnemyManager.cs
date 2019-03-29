@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour {
 
     private void SpawnEnemies(EnemyGroup group)
     {
-        var newGroup = Instantiate(group, new Vector3(0, startingY, 0), Quaternion.identity);
+        var newGroup = Instantiate(group, new Vector3(0, startingY + group.OffsetStartingYPosition, 0), Quaternion.identity);
         newGroup.Initialize(this, 0, startingY);
         activeGroups.Add(newGroup);
     }

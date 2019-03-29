@@ -83,6 +83,11 @@ PrefabInstance:
       propertyPath: maxMovesToMake
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: offsetStartingYPosition
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2012310792103168850, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}
       propertyPath: rowData.Array.size

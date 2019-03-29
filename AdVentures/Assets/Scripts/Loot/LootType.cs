@@ -15,6 +15,8 @@ public class LootType : ScriptableObject
     public GenericUpgradeEnum genericUpgrade;
     public float upgradeDuration = 15f;
 
+    public StaffScriptable staff;
+
     private const string INACTIVE_TEXT = "(Inactive)";
 
     public void OnValidate()
