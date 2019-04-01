@@ -10,15 +10,15 @@ public class PlayerProjectileController : MonoBehaviour
 {
     [SerializeField]
     private List<Projectile> projectiles;
-
     private PlayerShoot playerShoot;
+
     private int currentProjectileLevel = 1;
     private float currentLevelDuration;
     private float maxDurationPerLevel = 5f;
 
     private void Awake()
     {
-        playerShoot = GetComponent<PlayerShoot>();
+        playerShoot = GetComponent<PlayerShoot>();        
     }
 
     private void Start()

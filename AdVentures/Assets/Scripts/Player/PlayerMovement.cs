@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInput playerInput;
 
+    public bool CanMove { get; set; } = true;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -17,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (CanMove == false)
+            return;
+
         if (playerInput.isMovingLeft)
             transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
         else if (playerInput.isMovingRight)

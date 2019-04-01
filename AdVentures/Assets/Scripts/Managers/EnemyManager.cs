@@ -16,6 +16,8 @@ public class EnemyManager : MonoBehaviour {
     private float enemyMoveSpeed = 5f;
     [SerializeField]
     private int startingY = 4;
+    [SerializeField]
+    private int debugOverrideMaxGroups = 0;
 
     private List<EnemyGroup> activeGroups = new List<EnemyGroup>();
     private float lastMoved;
@@ -67,8 +69,8 @@ public class EnemyManager : MonoBehaviour {
         spawnCounter++;
         var group = enemyGroupPrefabs.FirstOrDefault(x => x.SpawnNumber == spawnCounter);
 
-        if (group == null)
-            Debug.LogError("No more groups to create");
+        if (group == null || (debugOverrideMaxGroups != 0 && spawnCounter > debugOverrideMaxGroups))
+            GameManager.Instance.GameOver(true);
         else
             SpawnEnemies(group);   
     }

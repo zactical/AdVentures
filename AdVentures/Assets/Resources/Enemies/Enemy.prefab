@@ -129,6 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialPoolSize: 50
   enemyType: 0
+  itemToSpawn: {fileID: 8562747392902324348, guid: d8a0c26440872be4c80e355c1542a034,
+    type: 3}
 --- !u!114 &6741428626943445052
 MonoBehaviour:
   m_ObjectHideFlags: 0

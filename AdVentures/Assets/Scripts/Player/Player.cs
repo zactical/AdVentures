@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
     private PlayerShoot playerShoot;
     private PlayerProjectileController playerProjectileController;
     private PlayerImmunity playerImmunity;
+    private Animator animator;
 
     private void Awake()
     {
@@ -26,6 +27,13 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
         playerShoot = GetComponent<PlayerShoot>();
         playerProjectileController = GetComponent<PlayerProjectileController>();
         playerImmunity = GetComponent<PlayerImmunity>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        playerShoot.ToggleShootingEnabled(false);
+        animator.SetTrigger("PlayerSpawn");
     }
 
     public void AddWeapon(WeaponUpgradeTypeEnum type, float? expireInSeconds = null)
@@ -46,8 +54,10 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
         if (playerImmunity.IsImmune)
             return;
 
+        animator.SetTrigger("KillPlayer");
         playerShoot.ToggleShootingEnabled(false);
-        StartCoroutine(KillAfterSeconds(2));
+        playerMovement.CanMove = false;
+        GameManager.Instance.GameOver();
     }
 
     public void PickUpLoot(Loot loot)
@@ -64,11 +74,9 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
         UIManager.Instance.SetAlert(loot.LootType);
     }
 
-    private IEnumerator KillAfterSeconds(float seconds)
+    // called via Animation
+    public void OnPlayerSpawnAnimationOver()
     {
-        yield return new WaitForSeconds(seconds);
-        GameManager.Instance.PlayerDied();
+        playerShoot.ToggleShootingEnabled(true);
     }
-
-    
 }

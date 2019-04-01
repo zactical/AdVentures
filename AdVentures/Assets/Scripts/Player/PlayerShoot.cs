@@ -22,11 +22,13 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
     private float shotForce = 300f;
     private Projectile projectile;
     private bool isShootingDisabled;
+    private Animator animator;
 
     private List<WeaponType> currentWeapons = new List<WeaponType>();
 
     private void Awake()
-    {        
+    {
+        animator = GetComponent<Animator>();
         currentWeapons.Add(new WeaponType(WeaponUpgradeTypeEnum.Normal, null));
     }
 
@@ -47,6 +49,7 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
             foreach (var weapon in currentWeapons)
             {
                 ShotFactory.Fire(weapon.Weapon, projectile, shotForce, this);
+                animator.SetTrigger("PlayerShoot");
             }
         }
     }

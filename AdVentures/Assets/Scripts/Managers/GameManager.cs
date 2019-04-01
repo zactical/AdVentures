@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         if (enemyManager == null)
             Debug.LogError("Could not find Enemy Manager");
         else
-            enemyManager.SpawnNextGroup();
+            StartCoroutine(StartGameAfterDelay());
     }
 
     public LootType GetNextLoot()
@@ -43,10 +43,16 @@ public class GameManager : MonoBehaviour
         return possibleLoot[randomLootIndex];
     }
 
-    public void PlayerDied()
+    public void GameOver(bool isAllLevelsFinished = false)
+    {        
+        StartCoroutine(GameOverAfterSeconds(2, isAllLevelsFinished));
+    }
+
+    public void ReloadScene()
     {
         SceneManager.LoadScene(0);
         Pool.ClearPools();
+        Time.timeScale = 1;
     }
 
     private void SetupLoot()
@@ -61,5 +67,18 @@ public class GameManager : MonoBehaviour
             
             staffMembers.Remove(randomUnusedStaff);
         }
+    }
+
+    private IEnumerator GameOverAfterSeconds(float seconds, bool isAllLevelsFinished)
+    {
+        yield return new WaitForSeconds(seconds);
+        Time.timeScale = 0;
+        UIManager.Instance.ShowGameOverScreen(0, isAllLevelsFinished ? "You Win!" : "Game Over");
+    }
+
+    private IEnumerator StartGameAfterDelay()
+    {
+        yield return new WaitForSeconds(2);
+        enemyManager.SpawnNextGroup();
     }
 }

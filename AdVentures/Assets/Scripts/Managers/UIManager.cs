@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private RectTransform alertStartingLocation;
 
+    [SerializeField]
+    private GameOver gameOverScreen;
+
     private void Awake()
     {
         if (Instance == null)
@@ -29,6 +32,11 @@ public class UIManager : MonoBehaviour
     {
         var newAlert = alertPanel.Get<AlertPanel>(alertStartingLocation.transform.position, Quaternion.identity);
         newAlert.TriggerAlert(loot);
+    }
+
+    public void ShowGameOverScreen(int score, string text)
+    {
+        gameOverScreen.Show(score, text);
     }
 
 }

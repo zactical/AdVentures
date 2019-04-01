@@ -74,6 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}
+      propertyPath: lootDetails.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
       propertyPath: test
       value: 
       objectReference: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
@@ -87,6 +92,17 @@ PrefabInstance:
         type: 3}
       propertyPath: offsetStartingYPosition
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: lootDetails.Array.data[0].loot
+      value: 
+      objectReference: {fileID: 11400000, guid: 90ab938c3448b4a49a98c7cf22035f6a,
+        type: 2}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: lootDetails.Array.data[0].count
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2012310792103168850, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}

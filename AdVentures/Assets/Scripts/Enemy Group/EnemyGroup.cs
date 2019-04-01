@@ -15,6 +15,8 @@ public class EnemyGroup : MonoBehaviour
     [SerializeField]
     private int offsetStartingYPosition = 0;
     public int OffsetStartingYPosition => offsetStartingYPosition;
+    [SerializeField]
+    private List<EnemyGroupLootDetail> lootDetails;
 
 
     private int currentMovesTaken = 0;
@@ -58,6 +60,7 @@ public class EnemyGroup : MonoBehaviour
         movement.LateInitialize(enemies);
 
         ResetGroup();
+        RandomizeGroupLoot();
     }
 
     public void ResetGroup()
@@ -111,6 +114,21 @@ public class EnemyGroup : MonoBehaviour
             {
                 enemy.FlyAway(delay);
                 delay = Mathf.Min(delay + .2f, 1.5f);
+            }
+        }
+    }
+
+    private void RandomizeGroupLoot()
+    {
+        var enemiesWithoutLoot = enemies.ToList();
+
+        for (int i = 0; i < lootDetails.Count; i++)
+        {
+            for (int k = 0; k < lootDetails[i].count; k++)
+            {
+                var randomEnemy = enemiesWithoutLoot[Random.Range(0, enemiesWithoutLoot.Count)];
+                randomEnemy.SetLootToAward(lootDetails[i].loot);
+                enemiesWithoutLoot.Remove(randomEnemy);
             }
         }
     }

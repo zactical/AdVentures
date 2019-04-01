@@ -10,6 +10,9 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     // private member data     
     private int enemyHealth;
+    private LootType lootOnKill;
+    [SerializeField]
+    private Loot itemToSpawn;
 
     // other enemy systems
     private EnemyGroup group;
@@ -62,11 +65,19 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
         enemyAnimation.FlyAway(delay);
     }
 
+    public void SetLootToAward(LootType loot)
+    {
+        lootOnKill = loot;
+    }
+
     public void Kill(bool awardLoot = true)
     {
-        if(awardLoot)
+        if(awardLoot && lootOnKill != null)
         {
-            RaiseDeathEvents();                     
+            // RaiseDeathEvents();         
+            var item = Instantiate(itemToSpawn, transform.position, Quaternion.identity);
+            item.SetLootType(lootOnKill);
+            lootOnKill = null;
         }
 
         group.ReportEnemyDeath(this);
