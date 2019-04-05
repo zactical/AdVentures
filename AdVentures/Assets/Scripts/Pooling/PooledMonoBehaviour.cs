@@ -19,7 +19,7 @@ public class PooledMonoBehaviour : MonoBehaviour
 
     public T Get<T>(bool enable = true, GameObject poolParent = null) where T : PooledMonoBehaviour
     {
-        var pool = Pool.GetPool(this, poolParent);
+        var pool = Pool.GetPool(this, poolParent: poolParent);
         var pooledObject = pool.Get<T>();
 
         if(enable)

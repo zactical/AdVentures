@@ -9,10 +9,14 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private AlertPanel alertPanel;
     [SerializeField]
-    private RectTransform alertStartingLocation;
+    private Transform alertStartingLocation;
 
     [SerializeField]
     private GameOver gameOverScreen;
+    [SerializeField]
+    private ScoreText scoreText;
+    [SerializeField]
+    private HighScoreMenu highScoreMenu;
 
     private void Awake()
     {
@@ -24,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        var alertPool = Pool.GetPool(alertPanel, alertStartingLocation.parent.gameObject);
+        var alertPool = Pool.GetPool(alertPanel, alertStartingLocation);
         alertPool.WarmPool();        
     }
 
@@ -36,7 +40,12 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameOverScreen(int score, string text)
     {
+        highScoreMenu.Show();
         gameOverScreen.Show(score, text);
     }
 
+    public void UpdateScore(int newScore)
+    {
+        scoreText.UpdateScore(newScore);
+    }
 }

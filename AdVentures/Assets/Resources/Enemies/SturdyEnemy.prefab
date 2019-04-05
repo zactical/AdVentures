@@ -75,6 +75,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: visualData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: visualData.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 73f4896c59a74fc47a035b0dfbba5080,
+        type: 3}
+    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: visualData.Array.data[1].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 84b959409ffec8649b1075471034b405, type: 2}
+    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: visualData.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f823e66c31e78e3419c57d2cdfd440a0,
+        type: 3}
     - target: {fileID: 212343786006017570, guid: 3abd36055c15d0b4192fe9d7c67653ec,
         type: 3}
       propertyPath: m_Color.r
@@ -94,29 +116,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300016, guid: f765859bf73bed14491cbd4956a07d1f,
-        type: 3}
-    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: visualData.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: visualData.Array.data[1].sprite
-      value: 
-      objectReference: {fileID: 21300016, guid: f765859bf73bed14491cbd4956a07d1f,
-        type: 3}
-    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: visualData.Array.data[1].material
-      value: 
-      objectReference: {fileID: 2100000, guid: 470d4b2ec674cc843836b9ea70c8d743, type: 2}
-    - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: visualData.Array.data[0].sprite
-      value: 
-      objectReference: {fileID: 21300014, guid: f765859bf73bed14491cbd4956a07d1f,
+      objectReference: {fileID: 21300000, guid: 73f4896c59a74fc47a035b0dfbba5080,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3abd36055c15d0b4192fe9d7c67653ec, type: 3}

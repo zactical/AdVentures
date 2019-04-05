@@ -19,3 +19,4 @@ MonoBehaviour:
   projectileUpgrade: 0
   genericUpgrade: 2
   upgradeDuration: 12
+  staff: {fileID: 0}

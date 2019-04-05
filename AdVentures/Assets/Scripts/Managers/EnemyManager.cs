@@ -24,6 +24,7 @@ public class EnemyManager : MonoBehaviour {
     private float moveThreshold = 10f;
     private int leftBoundX;
     private int rightBoundX;
+    private bool canSpawnNextGroup = true;
 
     private int spawnCounter;
 
@@ -66,6 +67,9 @@ public class EnemyManager : MonoBehaviour {
 
     public void SpawnNextGroup()
     {
+        if (canSpawnNextGroup == false)
+            return;
+
         spawnCounter++;
         var group = enemyGroupPrefabs.FirstOrDefault(x => x.SpawnNumber == spawnCounter);
 
@@ -83,5 +87,15 @@ public class EnemyManager : MonoBehaviour {
             Debug.LogError($"No enemy of type: {enemyType} was found in the enemy manager.");
 
         return enemy;
+    }
+
+    public void DisperseAllEnemies()
+    {
+        canSpawnNextGroup = false;
+
+        foreach (var group in activeGroups)
+        {
+            group.ForceGroupExit();
+        }
     }
 }

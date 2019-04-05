@@ -8,7 +8,7 @@ using TMPro;
 public class AlertPanel : PooledMonoBehaviour
 {
     [SerializeField]
-    private Image staffImage;
+    private SpriteRenderer IconSpriteRenderer;
     [SerializeField]
     private TextMeshProUGUI alertText;
 
@@ -26,7 +26,7 @@ public class AlertPanel : PooledMonoBehaviour
     {
         //var randomStaff = staffMembers[Random.Range(0, staffMembers.Count)];
 
-        staffImage.sprite = loot.staff.Image;
+        IconSpriteRenderer.sprite = loot.staff.Image;
         alertText.text = string.Format("{0} trained you on Ventures!", loot.staff.Name);
 
         animator.SetTrigger("Activate");

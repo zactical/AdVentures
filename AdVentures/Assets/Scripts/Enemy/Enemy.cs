@@ -11,6 +11,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
     // private member data     
     private int enemyHealth;
     private LootType lootOnKill;
+    private bool canShoot;
     [SerializeField]
     private Loot itemToSpawn;
 
@@ -41,6 +42,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
     {
         enemyHealth = enemyGraphics == null ? 1 : enemyGraphics.GraphicLevels();
         enemyGraphics?.UpdateGraphics(enemyHealth);
+        canShoot = true;
     }
 
     public void TakeDamage(int amount)
@@ -62,6 +64,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     public void FlyAway(float delay)
     {
+        canShoot = false;
         enemyAnimation.FlyAway(delay);
     }
 
@@ -72,12 +75,18 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     public void Kill(bool awardLoot = true)
     {
-        if(awardLoot && lootOnKill != null)
+
+        if (awardLoot)
         {
-            // RaiseDeathEvents();         
-            var item = Instantiate(itemToSpawn, transform.position, Quaternion.identity);
-            item.SetLootType(lootOnKill);
-            lootOnKill = null;
+            GameManager.Instance.AddToScore(100);
+
+            if (lootOnKill != null)
+            {
+                // RaiseDeathEvents();         
+                var item = Instantiate(itemToSpawn, transform.position, Quaternion.identity);
+                item.SetLootType(lootOnKill);
+                lootOnKill = null;
+            }
         }
 
         group.ReportEnemyDeath(this);
@@ -94,7 +103,8 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     public void Shoot()
     {
-        enemyAttack?.Attack();
+        if(canShoot)
+            enemyAttack?.Attack();
     }
 
     #endregion

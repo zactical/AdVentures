@@ -9,7 +9,7 @@ public class Pool : MonoBehaviour
 
     private PooledMonoBehaviour prefab;
 
-    public static Pool GetPool(PooledMonoBehaviour prefab, GameObject poolParent = null)
+    public static Pool GetPool(PooledMonoBehaviour prefab, Transform poolLocation = null, GameObject poolParent = null)
     {
         if (pools.ContainsKey(prefab))
             return pools[prefab];
@@ -18,6 +18,9 @@ public class Pool : MonoBehaviour
 
         if (poolParent != null)
             pool.gameObject.transform.SetParent(poolParent.transform, false);
+
+        if (poolLocation != null)
+            pool.gameObject.transform.position = poolLocation.position;
 
         pool.prefab = prefab;
 

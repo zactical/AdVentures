@@ -101,7 +101,7 @@ public class EnemyGroup : MonoBehaviour
         }
     } 
     
-    private void ForceGroupExit()
+    public void ForceGroupExit()
     {
         if (isCurrentlyExiting)
             return;

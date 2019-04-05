@@ -7,6 +7,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     float moveSpeed = 8f;
+    [SerializeField]
+    private GameObject leftBound;
+    [SerializeField]
+    private GameObject rightBound;
 
     private PlayerInput playerInput;
 
@@ -22,9 +26,9 @@ public class PlayerMovement : MonoBehaviour
         if (CanMove == false)
             return;
 
-        if (playerInput.isMovingLeft)
+        if (playerInput.isMovingLeft && transform.position.x > leftBound.transform.position.x)
             transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
-        else if (playerInput.isMovingRight)
+        else if (playerInput.isMovingRight && transform.position.x < rightBound.transform.position.x)
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
     }
 

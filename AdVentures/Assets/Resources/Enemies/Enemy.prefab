@@ -68,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a128ac78c04a0914faed9ff834bf15eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 486a02748df92a54f87b934813858be9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainEnemyRenderer: {fileID: 212343786006017570}
   visualData:
-  - sprite: {fileID: 21300000, guid: a128ac78c04a0914faed9ff834bf15eb, type: 3}
+  - sprite: {fileID: 21300000, guid: 486a02748df92a54f87b934813858be9, type: 3}
     material: {fileID: 2100000, guid: 84b959409ffec8649b1075471034b405, type: 2}
 --- !u!1 &3956658845608350900
 GameObject:

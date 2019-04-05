@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     private List<LootType> possibleLoot = new List<LootType>();
 
+    private int score;
     private Player player;
     private EnemyManager enemyManager;
 
@@ -43,8 +44,15 @@ public class GameManager : MonoBehaviour
         return possibleLoot[randomLootIndex];
     }
 
+    public void AddToScore(int amount)
+    {
+        score += amount;
+        UIManager.Instance.UpdateScore(score);
+    }
+
     public void GameOver(bool isAllLevelsFinished = false)
-    {        
+    {
+        enemyManager.DisperseAllEnemies();
         StartCoroutine(GameOverAfterSeconds(2, isAllLevelsFinished));
     }
 
@@ -52,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Pool.ClearPools();
-        Time.timeScale = 1;
+    //    Time.timeScale = 1;
     }
 
     private void SetupLoot()
@@ -72,9 +80,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOverAfterSeconds(float seconds, bool isAllLevelsFinished)
     {
         yield return new WaitForSeconds(seconds);
-        Time.timeScale = 0;
-        UIManager.Instance.ShowGameOverScreen(0, isAllLevelsFinished ? "You Win!" : "Game Over");
+        //  Time.timeScale = 0;
+        UIManager.Instance.ShowGameOverScreen(score, isAllLevelsFinished ? "You Win!" : "Game Over");
     }
+    
 
     private IEnumerator StartGameAfterDelay()
     {
