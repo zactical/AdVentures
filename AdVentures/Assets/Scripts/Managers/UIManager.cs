@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class UIManager : MonoBehaviour
     private ScoreText scoreText;
     [SerializeField]
     private HighScoreMenu highScoreMenu;
+    [SerializeField]
+    private ProgressionMeter progressionMeter;
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        SetProgression(0);
         var alertPool = Pool.GetPool(alertPanel, alertStartingLocation);
         alertPool.WarmPool();        
     }
@@ -47,5 +51,12 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int newScore)
     {
         scoreText.UpdateScore(newScore);
+    }
+
+    public void SetProgression(float amount)
+    {
+        progressionMeter.UpdateAmount(amount);
+
+        //progressionMeter.GetComponent<Image>().fillAmount = amount;
     }
 }

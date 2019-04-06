@@ -31,11 +31,11 @@ public class PlayerProjectileController : MonoBehaviour
 
     private void Update()
     {       
-        if (currentLevelDuration > 0)
-            currentLevelDuration -= Time.deltaTime;
-
-        if (currentProjectileLevel > (int)ProjectileUpgradeTypeEnum.Standard && currentLevelDuration <= 0)
-            DecreaseLevel();
+        //if (currentLevelDuration > 0)
+        //    currentLevelDuration -= Time.deltaTime;
+        //
+        //if (currentProjectileLevel > (int)ProjectileUpgradeTypeEnum.Standard && currentLevelDuration <= 0)
+        //    DecreaseLevel();
     }
 
     public void AddProjectile(float? expireInSeconds = null)

@@ -9,10 +9,6 @@ public class EnemyManager : MonoBehaviour {
     private List<EnemyGroup> enemyGroupPrefabs;
     private List<Enemy> enemyPrefabs;
     [SerializeField]
-    private Transform leftBound;
-    [SerializeField]
-    private Transform rightBound;
-    [SerializeField]
     private float enemyMoveSpeed = 5f;
     [SerializeField]
     private int startingY = 4;
@@ -22,16 +18,12 @@ public class EnemyManager : MonoBehaviour {
     private List<EnemyGroup> activeGroups = new List<EnemyGroup>();
     private float lastMoved;
     private float moveThreshold = 10f;
-    private int leftBoundX;
-    private int rightBoundX;
     private bool canSpawnNextGroup = true;
 
     private int spawnCounter;
 
     private void Awake()
     {
-        leftBoundX = Mathf.RoundToInt(leftBound.transform.position.x);
-        rightBoundX = Mathf.RoundToInt(rightBound.transform.position.x);
 
         enemyGroupPrefabs = Resources.LoadAll<EnemyGroup>("").ToList();
         enemyPrefabs = Resources.LoadAll<Enemy>("").ToList();
@@ -76,7 +68,9 @@ public class EnemyManager : MonoBehaviour {
         if (group == null || (debugOverrideMaxGroups != 0 && spawnCounter > debugOverrideMaxGroups))
             GameManager.Instance.GameOver(true);
         else
-            SpawnEnemies(group);   
+        {
+            SpawnEnemies(group);
+        }
     }
 
     public Enemy GetEnemyByType(EnemyTypeEnum enemyType)

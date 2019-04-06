@@ -4,29 +4,40 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class Loot : MonoBehaviour
+public class Loot : PooledMonoBehaviour
 {
    // [SerializeField]
     private LootType lootType;
+    private Rigidbody2D rb;
     private SpriteRenderer renderer;
 
     public LootType LootType => lootType;
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         renderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void SetLootType(LootType lootType)
     {
         this.lootType = lootType;
-        renderer.sprite = this.lootType.staff.Image;
+
+        if(this.lootType.staff?.Image != null)
+            renderer.sprite = this.lootType.staff.Image;
+        else
+            renderer.sprite = this.lootType.Icon;       
+    }
+
+    public void SetGravityScale(float scale = 0.75f)
+    {
+        rb.gravityScale = scale;
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        var lootGrabber = collision.gameObject.GetComponent<IGrabLoot>();
+        var lootGrabber = collider.gameObject.GetComponent<IGrabLoot>();
 
         if (lootGrabber != null)
             lootGrabber.PickUpLoot(this);

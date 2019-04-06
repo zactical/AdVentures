@@ -18,6 +18,17 @@ public class EnemyAnimation : MonoBehaviour
         StopAllCoroutines();
     }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        var damageableObject = collider.gameObject.GetComponent<ITakeDamage>();
+
+        if (damageableObject != null)
+        {
+            damageableObject.TakeDamage(1);
+            enemy.Kill(true);
+        }
+    }
+
     public void FlyAway(float delay)
     {
         var triggerToSet = Random.Range(0, 100) > 50 ? "flyAwayLeft" : "flyAwayRight";

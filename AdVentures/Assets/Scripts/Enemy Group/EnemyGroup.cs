@@ -15,8 +15,9 @@ public class EnemyGroup : MonoBehaviour
     [SerializeField]
     private int offsetStartingYPosition = 0;
     public int OffsetStartingYPosition => offsetStartingYPosition;
+
     [SerializeField]
-    private List<EnemyGroupLootDetail> lootDetails;
+    private List<EnemyGroupLootDetail> progressionDrops;
 
 
     private int currentMovesTaken = 0;
@@ -122,12 +123,12 @@ public class EnemyGroup : MonoBehaviour
     {
         var enemiesWithoutLoot = enemies.ToList();
 
-        for (int i = 0; i < lootDetails.Count; i++)
+        for (int i = 0; i < progressionDrops.Count; i++)
         {
-            for (int k = 0; k < lootDetails[i].count; k++)
+            for (int k = 0; k < progressionDrops[i].count; k++)
             {
                 var randomEnemy = enemiesWithoutLoot[Random.Range(0, enemiesWithoutLoot.Count)];
-                randomEnemy.SetLootToAward(lootDetails[i].loot);
+                randomEnemy.SetLootToAward(progressionDrops[i].loot);
                 enemiesWithoutLoot.Remove(randomEnemy);
             }
         }

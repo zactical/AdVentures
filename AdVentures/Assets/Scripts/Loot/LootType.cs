@@ -14,6 +14,7 @@ public class LootType : ScriptableObject
     public ProjectileUpgradeTypeEnum projectileUpgrade;
     public GenericUpgradeEnum genericUpgrade;
     public float upgradeDuration = 15f;
+    public int progressionAmount;
 
     public StaffScriptable staff;
 

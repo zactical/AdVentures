@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a5bcaf8535e8140a7b54749ab09de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialPoolSize: 50
+  initialPoolSize: 10
   IconSpriteRenderer: {fileID: 3006955725367838294}
   alertText: {fileID: 5361122178034234861}
 --- !u!95 &5879244241412785721

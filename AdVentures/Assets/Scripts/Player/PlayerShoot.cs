@@ -34,12 +34,12 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
 
     private void Update()
     {
-        foreach (var item in currentWeapons)
-        {
-            item.UpdateTime(Time.deltaTime);
-            if (item.ExpiresInSeconds.HasValue && item.ExpiresInSeconds <= 0)
-                StartCoroutine(RemoveWeaponAtEndOfFrame(item));
-        }
+        //foreach (var item in currentWeapons)
+        //{
+        //    item.UpdateTime(Time.deltaTime);
+        //    if (item.ExpiresInSeconds.HasValue && item.ExpiresInSeconds <= 0)
+        //        StartCoroutine(RemoveWeaponAtEndOfFrame(item));
+        //}
     }
 
     private void LateUpdate()
@@ -112,6 +112,11 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
     public void ToggleShootingEnabled(bool isEnabled)
     {
         isShootingDisabled = !isEnabled;
+    }
+
+    public List<WeaponUpgradeTypeEnum> GetCurrentWeapons()
+    {
+        return currentWeapons.Select(x => x.Weapon).ToList();
     }
 
     #endregion

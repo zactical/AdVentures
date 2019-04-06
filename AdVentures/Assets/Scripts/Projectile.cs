@@ -29,9 +29,9 @@ public class Projectile : PooledMonoBehaviour
         this.direction = direction;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        var damageableObject = collision.gameObject.GetComponentInParent<ITakeDamage>();
+        var damageableObject = collider.gameObject.GetComponentInParent<ITakeDamage>();
 
         if (damageableObject != null)
             damageableObject.TakeDamage(1);

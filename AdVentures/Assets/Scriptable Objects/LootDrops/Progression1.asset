@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a10e7c98c97487e468238d9d9a9bf3da, type: 3}
-  m_Name: UpgradeProjectile
+  m_Name: Progression1
   m_EditorClassIdentifier: 
   IsActive: 1
-  Icon: {fileID: 21300000, guid: 39df8b6352137a745a1e4011fff6152b, type: 3}
+  Icon: {fileID: 21300000, guid: 24d20e0551e8b404e8d6797e8ef6a087, type: 3}
   Points: 0
   weaponUpgrade: 0
   projectileUpgrade: 0
-  genericUpgrade: 2
-  upgradeDuration: 12
+  genericUpgrade: 0
+  upgradeDuration: 0
+  progressionAmount: 1
   staff: {fileID: 0}

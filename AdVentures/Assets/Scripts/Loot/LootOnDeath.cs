@@ -17,7 +17,7 @@ public class LootOnDeath : MonoBehaviour, IDeathEvent
 
         if (Random.Range(1, 100) <= dropChancePercent)
         {
-            var item = Instantiate(itemToSpawn, transform.position, Quaternion.identity);
+            var item = itemToSpawn.Get<Loot>(transform.position, Quaternion.identity);
             item.SetLootType(GameManager.Instance.GetNextLoot());
         }
     }

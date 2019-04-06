@@ -239,11 +239,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyGroup_8
       objectReference: {fileID: 0}
-    - target: {fileID: 3223044975669601434, guid: cc5665ac7fd4d064185ddef385307958,
-        type: 3}
-      propertyPath: maxAllowableAttacksPerDelay
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 8007437083451373126, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -299,10 +294,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3223044975669601434, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: maxAllowableAttacksPerDelay
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223044975669601434, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: attackDelay
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}
       propertyPath: lootDetails.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: progressionDrops.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}
@@ -352,6 +362,17 @@ PrefabInstance:
         type: 3}
       propertyPath: lootDetails.Array.data[3].count
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: progressionDrops.Array.data[0].loot
+      value: 
+      objectReference: {fileID: 11400000, guid: 3494a97e2c8c94f4883ee24ab1b0d4a4,
+        type: 2}
+    - target: {fileID: 5702098933919127676, guid: cc5665ac7fd4d064185ddef385307958,
+        type: 3}
+      propertyPath: progressionDrops.Array.data[0].count
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2012310792103168850, guid: cc5665ac7fd4d064185ddef385307958,
         type: 3}

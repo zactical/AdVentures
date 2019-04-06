@@ -47,7 +47,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     public void TakeDamage(int amount)
     {
-        enemyHealth--;
+        enemyHealth -= amount;
 
         if (enemyHealth <= 0)
         {
@@ -75,7 +75,6 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
     public void Kill(bool awardLoot = true)
     {
-
         if (awardLoot)
         {
             GameManager.Instance.AddToScore(100);
@@ -83,7 +82,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
             if (lootOnKill != null)
             {
                 // RaiseDeathEvents();         
-                var item = Instantiate(itemToSpawn, transform.position, Quaternion.identity);
+                var item = itemToSpawn.Get<Loot>(transform.position, Quaternion.identity);
                 item.SetLootType(lootOnKill);
                 lootOnKill = null;
             }
@@ -92,7 +91,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
         group.ReportEnemyDeath(this);
         ReturnToPool();
     }
-
+    
 
     #region Enemy Systems Passthrough
 

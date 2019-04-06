@@ -8,9 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerProjectileController))]
 [RequireComponent(typeof(PlayerImmunity))]
+[RequireComponent(typeof(PlayerLoot))]
 public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
-{
-    
+{   
 
     // other player systems
     private PlayerInput playerInput;
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
     private PlayerShoot playerShoot;
     private PlayerProjectileController playerProjectileController;
     private PlayerImmunity playerImmunity;
+    private PlayerLoot playerLoot;
     private Animator animator;
 
     private void Awake()
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
         playerShoot = GetComponent<PlayerShoot>();
         playerProjectileController = GetComponent<PlayerProjectileController>();
         playerImmunity = GetComponent<PlayerImmunity>();
+        playerLoot = GetComponent<PlayerLoot>();
         animator = GetComponent<Animator>();
     }
 
@@ -62,21 +64,38 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
 
     public void PickUpLoot(Loot loot)
     {
-        if (loot.LootType.weaponUpgrade != WeaponUpgradeTypeEnum.None)
+        if(loot.LootType.progressionAmount > 0)
+            playerLoot.AddProgression(loot.LootType.progressionAmount);    
+        else if (loot.LootType.weaponUpgrade != WeaponUpgradeTypeEnum.None)
         {
             AddWeapon(loot.LootType.weaponUpgrade, loot.LootType.upgradeDuration);
+            UIManager.Instance.SetAlert(loot.LootType);
         }
         else if (loot.LootType.genericUpgrade != GenericUpgradeEnum.None)
         {
             AddGenericUpgrade(loot.LootType.genericUpgrade, loot.LootType.upgradeDuration);
+            UIManager.Instance.SetAlert(loot.LootType);
         }
-
-        UIManager.Instance.SetAlert(loot.LootType);
     }
 
     // called via Animation
     public void OnPlayerSpawnAnimationOver()
     {
         playerShoot.ToggleShootingEnabled(true);
+    }
+
+    public List<WeaponUpgradeTypeEnum> GetCurrentWeapons()
+    {
+        return playerShoot.GetCurrentWeapons();
+    }
+
+    public void ToggleShootingEnabled(bool enabled)
+    {
+        playerShoot.ToggleShootingEnabled(enabled);
+    }
+
+    public void ToggleMovingEnabled(bool enabled)
+    {
+        playerMovement.ToggleCanMove(enabled);
     }
 }
