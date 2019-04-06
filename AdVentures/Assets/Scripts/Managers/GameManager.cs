@@ -7,28 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-    public static GameManager Instance { get; set; }
-
-
-    [SerializeField]
-    private Transform lootTopBound;
-    [SerializeField]
-    private Transform lootBottomBound;
-    [SerializeField]
-    private Transform lootLeftBound;
-    [SerializeField]
-    private Transform lootRightBound;
-
-
-
-    private List<LootType> possibleLoot = new List<LootType>();
-
-    public Loot lootPrefab;
+    public static GameManager Instance { get; set; }    
 
     private int score;
     private Player player;
     private EnemyManager enemyManager;
+
+    private HighScoreData highScoreData = new HighScoreData();
+ //   private LootManager lootManager;
 
     private void Awake()
     {
@@ -40,24 +26,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        enemyManager = FindObjectOfType<EnemyManager>();
         player = FindObjectOfType<Player>();
-        Pool.GetPool(lootPrefab).WarmPool();
-        SetupLoot();
+        enemyManager = FindObjectOfType<EnemyManager>();
+    //    lootManager = FindObjectOfType<LootManager>();
 
-        if (enemyManager == null)
-            Debug.LogError("Could not find Enemy Manager");
-        else
-            StartCoroutine(StartGameAfterDelay());
-    }
+        CheckAllReferencesExist();
+        LoadHighScores();
 
-    public LootType GetNextLoot()
-    {
-        // var currentWeaponTypes = player.CurrentWeapons.Select(x => x.Weapon);
-        // var lootPlayerDoesNotHave = possibleLoot.Where(x => currentWeaponTypes.Contains(x.weaponUpgrade) == false).ToList();
-        var randomLootIndex = Random.Range(0, possibleLoot.Count);
-        return possibleLoot[randomLootIndex];
-    }
+        StartCoroutine(StartGameAfterDelay());
+    }   
 
     public void AddToScore(int amount)
     {
@@ -71,51 +48,31 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameOverAfterSeconds(2, isAllLevelsFinished));
     }
 
+    public void SaveCurrentScore(string name)
+    {
+        highScoreData.AddRecord(new ScoreRecord(name, score));
+        SaveHighScores();
+    }
+
     public void ReloadScene()
     {
         SceneManager.LoadScene(1);
         Pool.ClearPools();
-        //    Time.timeScale = 1;
-    }
+    }    
 
-    public void SpawnLoot()
+    public void QuitToMainMenu()
     {
-        var availableLoot = possibleLoot.Where(x => x.weaponUpgrade != WeaponUpgradeTypeEnum.None ||
-            (x.genericUpgrade != GenericUpgradeEnum.None && x.genericUpgrade != GenericUpgradeEnum.Immunity)
-        ).ToList();
-        var playersWeapons = player.GetCurrentWeapons();
-        var lootNotYetPickedUp = availableLoot.Where(x => playersWeapons.Contains(x.weaponUpgrade) == false).ToList();
-
-        var randomWeapon = lootNotYetPickedUp[Random.Range(0, lootNotYetPickedUp.Count)];
-
-        var item = lootPrefab.Get<Loot>(GetRandomLootPosition(), Quaternion.identity);
-        item.SetLootType(randomWeapon);
-        item.SetGravityScale(0);
-    }
-
-    private void SetupLoot()
-    {
-        possibleLoot = ScriptableObjectUtils.GetAllInstances<LootType>().Where(x => x.IsActive == true && x.progressionAmount == 0).ToList();
-        var staffMembers = ScriptableObjectUtils.GetAllInstances<StaffScriptable>().ToList();
-
-        foreach (var loot in possibleLoot)
-        {
-            var randomUnusedStaff = staffMembers[Random.Range(0, staffMembers.Count)];
-            loot.staff = randomUnusedStaff;
-
-            staffMembers.Remove(randomUnusedStaff);
-        }
+        SceneManager.LoadScene(0);
+        Pool.ClearPools();
     }
 
     private IEnumerator GameOverAfterSeconds(float seconds, bool isAllLevelsFinished)
     {
         yield return new WaitForSeconds(seconds);
-        //  Time.timeScale = 0;
         player.ToggleMovingEnabled(false);
         player.ToggleShootingEnabled(false);
-        UIManager.Instance.ShowGameOverScreen(score, isAllLevelsFinished ? "You Win!" : "Game Over");
+        UIManager.Instance.ShowGameOverScreen(highScoreData, score, isAllLevelsFinished ? "You Win!" : "Game Over");
     }
-
 
     private IEnumerator StartGameAfterDelay()
     {
@@ -123,12 +80,26 @@ public class GameManager : MonoBehaviour
         enemyManager.SpawnNextGroup();
     }
 
-    private Vector3 GetRandomLootPosition()
+    private void CheckAllReferencesExist()
     {
-        var newPosition = new Vector3(0, 0, 0);
-        newPosition.x = Random.Range(lootLeftBound.position.x, lootRightBound.position.x);
-        newPosition.y = Random.Range(lootTopBound.position.y, lootBottomBound.position.y);
+        if (player == null)
+            Debug.LogError("Could not find Player");
 
-        return newPosition;
+       // if (lootManager == null)
+       //     Debug.LogError("Could not find Loot Manager");
+
+        if (enemyManager == null)
+            Debug.LogError("Could not find Enemy Manager");
     }
+
+    private void LoadHighScores()
+    {
+        SaveController.Load(highScoreData);
+    }
+
+    private void SaveHighScores()
+    {
+        SaveController.Save(highScoreData);
+    }
+    
 }

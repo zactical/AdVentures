@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 3387473760518112978}
   - component: {fileID: 7206547207299208367}
   - component: {fileID: 8562747392902324348}
+  - component: {fileID: 8919128784105756514}
   m_Layer: 10
   m_Name: Loot
   m_TagString: Untagged
@@ -172,3 +173,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c36124b82a5fa1498ef39eaa5d3d597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialPoolSize: 50
+--- !u!114 &8919128784105756514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5380499084597799411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c97369e60c21224f8f54003975d0520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  timeToTarget: 3
+  closenessThreshold: 0.1

@@ -24,8 +24,6 @@ public class EnemyGroupRow : MonoBehaviour
         {
             for (int i = 0; i < datum.Amount; i++)
             {
-                //Instantiate(enemyManager.GetEnemyByType(datum.EnemyType), new Vector3(startingXposition + totalSpawned, transform.position.y, 0), Quaternion.identity, transform.parent);
-                //var child = Instantiate(GetEnemyPrefab(datum.EnemyType, enemyManager), new Vector3(startingXposition + totalSpawned, transform.position.y, 0), Quaternion.identity, transform);
                 var child = GetEnemy(enemyManager, GetEnemyPrefab(datum.EnemyType, enemyManager), new Vector3(startingXposition + totalSpawned, transform.position.y, 0));
 
                 if (updateChildGraphicsOnSpawn)
@@ -40,6 +38,7 @@ public class EnemyGroupRow : MonoBehaviour
         return spawnedEnemies;
     }
 
+    // Manager can be null when testing in editor mode
     private Enemy GetEnemy(EnemyManager manager, Enemy enemy, Vector3 position)
     {
         if (manager == null)
@@ -48,6 +47,7 @@ public class EnemyGroupRow : MonoBehaviour
             return enemy.Get<Enemy>(position, Quaternion.identity);
     }
 
+    // Manager can be null when testing in editor mode
     private Enemy GetEnemyPrefab(EnemyTypeEnum enemyType, EnemyManager manager)
     {
         if (manager == null)

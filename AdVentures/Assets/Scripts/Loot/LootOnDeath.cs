@@ -12,13 +12,14 @@ public class LootOnDeath : MonoBehaviour, IDeathEvent
     
     public void Raise()
     {
+        Debug.LogError("This should not be used?");
         // if (itemToSpawn == null)
         //    return;
 
         if (Random.Range(1, 100) <= dropChancePercent)
         {
-            var item = itemToSpawn.Get<Loot>(transform.position, Quaternion.identity);
-            item.SetLootType(GameManager.Instance.GetNextLoot());
+        //var item = itemToSpawn.Get<Loot>(transform.position, Quaternion.identity);
+          //  item.SetLootType(GameManager.Instance.GetNextLoot());
         }
     }
 }

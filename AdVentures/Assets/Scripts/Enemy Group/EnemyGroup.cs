@@ -47,20 +47,24 @@ public class EnemyGroup : MonoBehaviour
         attack = GetComponent<EnemyGroupAttack>();        
     }    
 
-    public void Initialize(EnemyManager manager, int startingX, int startingY)
+    public void Initialize(EnemyManager manager, int spawnNumber, int startingX, int startingY)
     {
         enemyManager = manager;
+        SpawnNumber = spawnNumber;
         movement.Initialize(startingX, startingY);
 
         enemyRows = GetComponentsInChildren<EnemyGroupRow>();
+        ResetGroup();
+    }
 
+    public void ActivateGroup()
+    {
         foreach (var row in enemyRows)
             enemies.AddRange(row.Initialize(enemyManager));
 
         attack.LateInitialize(enemies, this);
         movement.LateInitialize(enemies);
-
-        ResetGroup();
+        
         RandomizeGroupLoot();
     }
 

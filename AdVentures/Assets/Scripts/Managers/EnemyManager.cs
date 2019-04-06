@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour {
     private int debugOverrideMaxGroups = 0;
 
     private List<EnemyGroup> activeGroups = new List<EnemyGroup>();
+    private List<EnemyGroup> inActiveGroups = new List<EnemyGroup>();
     private float lastMoved;
     private float moveThreshold = 10f;
     private bool canSpawnNextGroup = true;
@@ -24,9 +25,11 @@ public class EnemyManager : MonoBehaviour {
 
     private void Awake()
     {
-
         enemyGroupPrefabs = Resources.LoadAll<EnemyGroup>("").ToList();
         enemyPrefabs = Resources.LoadAll<Enemy>("").ToList();
+
+        PreWarmAllEnemyGroups();
+        PreWarmAllEnemyTypes();        
     }
 
     void Update() {
@@ -45,9 +48,11 @@ public class EnemyManager : MonoBehaviour {
 
     private void SpawnEnemies(EnemyGroup group)
     {
-        var newGroup = Instantiate(group, new Vector3(0, startingY + group.OffsetStartingYPosition, 0), Quaternion.identity);
-        newGroup.Initialize(this, 0, startingY);
-        activeGroups.Add(newGroup);
+        if (inActiveGroups.Contains(group))
+            inActiveGroups.Remove(group);
+
+        activeGroups.Add(group);
+        group.ActivateGroup();
     }
 
     public void RemoveActiveGroup(EnemyGroup group)
@@ -63,7 +68,7 @@ public class EnemyManager : MonoBehaviour {
             return;
 
         spawnCounter++;
-        var group = enemyGroupPrefabs.FirstOrDefault(x => x.SpawnNumber == spawnCounter);
+        var group = inActiveGroups.FirstOrDefault(x => x.SpawnNumber == spawnCounter);
 
         if (group == null || (debugOverrideMaxGroups != 0 && spawnCounter > debugOverrideMaxGroups))
             GameManager.Instance.GameOver(true);
@@ -90,6 +95,24 @@ public class EnemyManager : MonoBehaviour {
         foreach (var group in activeGroups)
         {
             group.ForceGroupExit();
+        }
+    }
+
+    private void PreWarmAllEnemyTypes()
+    {
+        foreach (var enemy in enemyPrefabs)
+        {
+            Pool.GetPool(enemy).WarmPool();
+        }
+    }
+
+    private void PreWarmAllEnemyGroups()
+    {
+        foreach (var group in enemyGroupPrefabs)
+        {
+            var newGroup = Instantiate(group, new Vector3(0, startingY + group.OffsetStartingYPosition, 0), Quaternion.identity);
+            newGroup.Initialize(this, group.SpawnNumber, 0, startingY);
+            inActiveGroups.Add(newGroup);
         }
     }
 }

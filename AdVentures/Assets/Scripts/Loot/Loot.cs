@@ -9,14 +9,16 @@ public class Loot : PooledMonoBehaviour
    // [SerializeField]
     private LootType lootType;
     private Rigidbody2D rb;
-    private SpriteRenderer renderer;
+    private SpriteRenderer sr;
+    private MoveToTarget moveToTarget;
 
     public LootType LootType => lootType;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        renderer = GetComponentInChildren<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        moveToTarget = GetComponent<MoveToTarget>();
     }
 
     public void SetLootType(LootType lootType)
@@ -24,14 +26,21 @@ public class Loot : PooledMonoBehaviour
         this.lootType = lootType;
 
         if(this.lootType.staff?.Image != null)
-            renderer.sprite = this.lootType.staff.Image;
+            sr.sprite = this.lootType.staff.Image;
         else
-            renderer.sprite = this.lootType.Icon;       
+            sr.sprite = this.lootType.Icon;       
     }
 
     public void SetGravityScale(float scale = 0.75f)
     {
         rb.gravityScale = scale;
+    }
+
+    public void MoveToTarget(Vector3 position, float duration = 3f)
+    {
+        moveToTarget.SetTarget(position);
+        moveToTarget.timeToTarget = duration;
+        moveToTarget.StartMoving();
     }
 
 

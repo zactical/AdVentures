@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ProgressionMeter : MonoBehaviour
 {
+    [SerializeField]
+    private LootManager lootManager;
+
     private Image progressionImage;
     private Animator animator;
 
@@ -36,7 +39,7 @@ public class ProgressionMeter : MonoBehaviour
     {
         isAnimating = false;
         UpdateVisual();
-        GameManager.Instance.SpawnLoot();
+        lootManager.SpawnLoot();
     }
 
     private void UpdateVisual()

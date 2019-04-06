@@ -42,9 +42,9 @@ public class UIManager : MonoBehaviour
         newAlert.TriggerAlert(loot);
     }
 
-    public void ShowGameOverScreen(int score, string text)
+    public void ShowGameOverScreen(HighScoreData highScores, int score, string text)
     {
-        highScoreMenu.Show();
+        highScoreMenu.Show(highScores);
         gameOverScreen.Show(score, text);
     }
 
