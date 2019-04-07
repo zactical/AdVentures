@@ -21,6 +21,8 @@ public class MainMenu : MonoBehaviour
 
     public void OnHighScoresButtonClicked()
     {
+        MainButtonPanel.SetActive(false);
+        HighScorePanel.SetActive(true);
         SaveController.Load(highScoreData);
         highScoreMenu.Show(highScoreData);
     }
@@ -31,14 +33,15 @@ public class MainMenu : MonoBehaviour
     }
 
     public void OnBackToMainMenuClicked()
-    {
-
+    {        
+        HighScorePanel.SetActive(false);
+        MainButtonPanel.SetActive(true);
     }
 
     public void OnResetHighScoresClicked()
     {
         SaveController.DeleteSaveFile();
         highScoreData = new HighScoreData();
-        OnHighScoresButtonClicked();
+        highScoreMenu.Show(highScoreData);
     }
 }

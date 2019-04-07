@@ -7,6 +7,8 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 {
     [SerializeField]
     private EnemyTypeEnum enemyType;
+    [SerializeField]
+    private int scoreValue = 50;
 
     // private member data     
     private int enemyHealth;
@@ -77,7 +79,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
     {
         if (awardLoot)
         {
-            GameManager.Instance.AddToScore(100);
+            GameManager.Instance.AddToScore(scoreValue);
 
             if (lootOnKill != null)
             {

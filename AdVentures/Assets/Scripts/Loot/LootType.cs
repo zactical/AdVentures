@@ -17,9 +17,11 @@ public class LootType : ScriptableObject
     public int progressionAmount;
 
     public StaffScriptable staff;
+    public string AdditionalPickupMessage;
 
     private const string INACTIVE_TEXT = "(Inactive)";
 
+#if UNITY_EDITOR
     public void OnValidate()
     {
         if (IsActive == false && name.Contains(INACTIVE_TEXT) == false)
@@ -36,4 +38,5 @@ public class LootType : ScriptableObject
         AssetDatabase.RenameAsset(path, newName);
         AssetDatabase.SaveAssets();
     }
+#endif
 }

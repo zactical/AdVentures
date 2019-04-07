@@ -11,6 +11,7 @@ public class Loot : PooledMonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private MoveToTarget moveToTarget;
+    private Vector3 defaultScale;
 
     public LootType LootType => lootType;
 
@@ -19,6 +20,7 @@ public class Loot : PooledMonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         moveToTarget = GetComponent<MoveToTarget>();
+        defaultScale = transform.localScale;
     }
 
     public void SetLootType(LootType lootType)
@@ -36,6 +38,11 @@ public class Loot : PooledMonoBehaviour
         rb.gravityScale = scale;
     }
 
+    public void SetTransformScale(float scale)
+    {
+        transform.localScale = new Vector3(scale, scale, scale);
+    }
+
     public void MoveToTarget(Vector3 position, float duration = 3f)
     {
         moveToTarget.SetTarget(position);
@@ -51,6 +58,7 @@ public class Loot : PooledMonoBehaviour
         if (lootGrabber != null)
             lootGrabber.PickUpLoot(this);
 
-        Destroy(gameObject);
+        transform.localScale = defaultScale;
+        ReturnToPool();
     }
 }

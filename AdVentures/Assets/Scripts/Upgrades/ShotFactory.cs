@@ -22,10 +22,10 @@ public static class ShotFactory
             case WeaponUpgradeTypeEnum.Double:
                 break;
             case WeaponUpgradeTypeEnum.AngleLeft:
-                AngleShot(projectile, force, shotLocations.Normal().position, -20);
+                AngleShot(projectile, force, shotLocations.Normal().position, 20);
                 break;
             case WeaponUpgradeTypeEnum.AngleRight:
-                AngleShot(projectile, force, shotLocations.Normal().position, 20);
+                AngleShot(projectile, force, shotLocations.Normal().position, -20);
                 break;
             default:
                 break;

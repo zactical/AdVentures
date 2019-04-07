@@ -7,8 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; set; }    
+    public static GameManager Instance { get; set; }
 
+    [SerializeField]
+    private GameObject pauseMenu;
+
+    private bool isPaused;
     private int score;
     private Player player;
     private EnemyManager enemyManager;
@@ -34,7 +38,13 @@ public class GameManager : MonoBehaviour
         LoadHighScores();
 
         StartCoroutine(StartGameAfterDelay());
-    }   
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+            TogglePause();
+    }
 
     public void AddToScore(int amount)
     {
@@ -64,6 +74,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Pool.ClearPools();
+        Time.timeScale = 1;
     }
 
     private IEnumerator GameOverAfterSeconds(float seconds, bool isAllLevelsFinished)
@@ -100,6 +111,18 @@ public class GameManager : MonoBehaviour
     private void SaveHighScores()
     {
         SaveController.Save(highScoreData);
+    }
+
+    public void TogglePause()
+    {
+        if (isPaused)
+            Time.timeScale = 1;            
+        else
+            Time.timeScale = 0;
+
+        pauseMenu.SetActive(!isPaused);
+
+        isPaused = !isPaused;
     }
     
 }

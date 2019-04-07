@@ -7,7 +7,12 @@ public class LootManager : MonoBehaviour
 {
 
     [SerializeField]
-    private Transform lootStartingPosition;
+    private Transform lootStartingPosition; 
+    
+    [SerializeField]
+    private List<StaffScriptable> staffMembers;
+    [SerializeField]
+    private List<LootType> allLoot;
 
     [Header("Loot Bounds")]
     [SerializeField]
@@ -19,7 +24,9 @@ public class LootManager : MonoBehaviour
     [SerializeField]
     private Transform lootRightBound;
 
+    private LootType pointsOnlyLoot;
     private List<LootType> possibleLoot = new List<LootType>();
+    
 
     public Loot lootPrefab;
 
@@ -32,7 +39,10 @@ public class LootManager : MonoBehaviour
     public void SpawnLoot()
     {
         if (possibleLoot.Count <= 0)
+        {
+            DoSpawnLoot(pointsOnlyLoot);
             return;
+        }
 
         //  var randomLoot = possibleLoot[Random.Range(0, possibleLoot.Count)];
 
@@ -48,6 +58,7 @@ public class LootManager : MonoBehaviour
         var item = lootPrefab.Get<Loot>(lootStartingPosition.position, Quaternion.identity);
         item.SetLootType(loot);
         item.SetGravityScale(0);
+        item.SetTransformScale(1.75f);
         item.MoveToTarget(targetLootPosition);
     }
 
@@ -62,24 +73,31 @@ public class LootManager : MonoBehaviour
 
     private void SetupLoot()
     {
-        var discoveredLoot = ScriptableObjectUtils.GetAllInstances<LootType>().Where(x => x.IsActive == true && x.progressionAmount == 0).ToList();
-        var staffMembers = ScriptableObjectUtils.GetAllInstances<StaffScriptable>().ToList();
+        var discoveredLoot = allLoot.Where(x => x.IsActive == true && x.progressionAmount == 0).ToList();
+        // var staffMembers = ScriptableObjectUtils.GetAllInstances<StaffScriptable>("Staff").ToList();
 
+        pointsOnlyLoot = discoveredLoot.FirstOrDefault(x => x.weaponUpgrade == WeaponUpgradeTypeEnum.None && x.genericUpgrade == GenericUpgradeEnum.None);
+
+        var staffCopy = staffMembers.ToList();
         foreach (var loot in discoveredLoot)
         {
-            var randomUnusedStaff = staffMembers[Random.Range(0, staffMembers.Count)];
+            var randomUnusedStaff = staffCopy[Random.Range(0, staffCopy.Count)];
             loot.staff = randomUnusedStaff;
 
-            staffMembers.Remove(randomUnusedStaff);
+            staffCopy.Remove(randomUnusedStaff);
         }
 
         var possibleWeapons = discoveredLoot.Where(x => x.weaponUpgrade != WeaponUpgradeTypeEnum.None).ToList();
         var possibleNonWeapons = discoveredLoot.Where(x => (x.genericUpgrade != GenericUpgradeEnum.None && x.genericUpgrade != GenericUpgradeEnum.Immunity)).ToList();
 
-
+        var numWeapons = possibleWeapons.Count;
         // randomize order of weapons first in possible loot
-        for (int i = 0; i < possibleWeapons.Count; i++)
-            possibleLoot.Add(possibleWeapons[Random.Range(0, possibleWeapons.Count)]);
+        for (int i = 0; i < numWeapons; i++)
+        {
+            var randomLoot = possibleWeapons[Random.Range(0, possibleWeapons.Count)];
+            possibleWeapons.Remove(randomLoot);
+            possibleLoot.Add(randomLoot);
+        }
 
         possibleLoot.AddRange(possibleNonWeapons);    
     }

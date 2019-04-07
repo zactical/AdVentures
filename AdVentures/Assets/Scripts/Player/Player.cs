@@ -64,18 +64,20 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
 
     public void PickUpLoot(Loot loot)
     {
-        if(loot.LootType.progressionAmount > 0)
-            playerLoot.AddProgression(loot.LootType.progressionAmount);    
+        if (loot.LootType.progressionAmount > 0)
+        {
+            playerLoot.AddProgression(loot.LootType.progressionAmount);
+            return;
+        }
         else if (loot.LootType.weaponUpgrade != WeaponUpgradeTypeEnum.None)
-        {
             AddWeapon(loot.LootType.weaponUpgrade, loot.LootType.upgradeDuration);
-            UIManager.Instance.SetAlert(loot.LootType);
-        }
         else if (loot.LootType.genericUpgrade != GenericUpgradeEnum.None)
-        {
             AddGenericUpgrade(loot.LootType.genericUpgrade, loot.LootType.upgradeDuration);
-            UIManager.Instance.SetAlert(loot.LootType);
-        }
+
+        if (loot.LootType.Points > 0)
+            GameManager.Instance.AddToScore(loot.LootType.Points);
+
+        UIManager.Instance.SetAlert(loot.LootType);
     }
 
     // called via Animation

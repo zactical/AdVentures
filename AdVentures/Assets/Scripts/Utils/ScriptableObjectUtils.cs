@@ -23,23 +23,25 @@ public static class ScriptableObjectUtils
         JsonUtility.FromJsonOverwrite(output, objectToReset);
     }
 
-    public static T[] GetAllInstances<T>() where T : ScriptableObject
+    public static T[] GetAllInstances<T>(string resourceSubPath) where T : ScriptableObject
     {
-        string[] guids = AssetDatabase.FindAssets("t:" + typeof(T).Name);  //FindAssets uses tags check documentation for more info
-        T[] a = new T[guids.Length];
-        for (int i = 0; i < guids.Length; i++)         //probably could get optimized 
-        {
-            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-            a[i] = AssetDatabase.LoadAssetAtPath<T>(path);
-        }
+        //string[] guids = AssetDatabase.FindAssets("t:" + typeof(T).Name);  //FindAssets uses tags check documentation for more info
+        //T[] a = new T[guids.Length];
+        //for (int i = 0; i < guids.Length; i++)         //probably could get optimized 
+        //{
+        //    string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+        //    a[i] = AssetDatabase.LoadAssetAtPath<T>(path);
+        //}
+        //
+        //return a;
 
-        return a;
+        return Resources.LoadAll<T>(resourceSubPath);
 
     }
 
-    public static T[] GetAllInstances<T>(T instance) where T : ScriptableObject
+    public static T[] GetAllInstances<T>(T instance, string resourceSubPath) where T : ScriptableObject
     {
-        return GetAllInstances<T>();
+        return GetAllInstances<T>(resourceSubPath);
 
     }
 }

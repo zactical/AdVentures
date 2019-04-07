@@ -5,8 +5,9 @@ using System.Linq;
 
 public class EnemyManager : MonoBehaviour {
 
-   // [SerializeField]
+    [SerializeField]
     private List<EnemyGroup> enemyGroupPrefabs;
+    [SerializeField]
     private List<Enemy> enemyPrefabs;
     [SerializeField]
     private float enemyMoveSpeed = 5f;
@@ -25,8 +26,8 @@ public class EnemyManager : MonoBehaviour {
 
     private void Awake()
     {
-        enemyGroupPrefabs = Resources.LoadAll<EnemyGroup>("").ToList();
-        enemyPrefabs = Resources.LoadAll<Enemy>("").ToList();
+       // enemyGroupPrefabs = Resources.LoadAll<EnemyGroup>("").ToList();
+       // enemyPrefabs = Resources.LoadAll<Enemy>("").ToList();
 
         PreWarmAllEnemyGroups();
         PreWarmAllEnemyTypes();        
@@ -69,7 +70,7 @@ public class EnemyManager : MonoBehaviour {
 
         spawnCounter++;
         var group = inActiveGroups.FirstOrDefault(x => x.SpawnNumber == spawnCounter);
-
+        
         if (group == null || (debugOverrideMaxGroups != 0 && spawnCounter > debugOverrideMaxGroups))
             GameManager.Instance.GameOver(true);
         else

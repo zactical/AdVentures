@@ -11,23 +11,22 @@ public class AlertPanel : PooledMonoBehaviour
     private SpriteRenderer IconSpriteRenderer;
     [SerializeField]
     private TextMeshProUGUI alertText;
-
-    private List<StaffScriptable> staffMembers = new List<StaffScriptable>();
+    [SerializeField]
+    private TextMeshProUGUI effectText;
 
     private Animator animator;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        staffMembers = ScriptableObjectUtils.GetAllInstances<StaffScriptable>().ToList();
     }
 
     public void TriggerAlert(LootType loot)
     {
-        //var randomStaff = staffMembers[Random.Range(0, staffMembers.Count)];
-
         IconSpriteRenderer.sprite = loot.staff.Image;
-        alertText.text = string.Format("{0} trained you on Ventures!", loot.staff.Name);
+                
+        alertText.text = string.Format("{0} {1}", loot.staff.Name, GameUtils.GetRandomTrainingMessage());
+        effectText.text = loot.AdditionalPickupMessage;
 
         animator.SetTrigger("Activate");
     }

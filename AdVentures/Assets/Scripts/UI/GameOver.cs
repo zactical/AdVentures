@@ -17,18 +17,26 @@ public class GameOver : MonoBehaviour
         titleText.text = text;
         scoreText.text = string.Format("Score: {0}", score);
         gameObject.SetActive(true);
+        nameInputField.Select();
+        nameInputField.ActivateInputField();
     }
 
 
     public void OnRestartGameClick()
     {
-        if (string.IsNullOrEmpty(nameInputField.text) == false)
-            GameManager.Instance.SaveCurrentScore(nameInputField.text);
+        DoSaveScore();
         GameManager.Instance.ReloadScene();
     }
 
     public void OnExitGameClick()
     {
+        DoSaveScore();
+        GameManager.Instance.QuitToMainMenu();
+    }
 
+    private void DoSaveScore()
+    {
+        if (string.IsNullOrEmpty(nameInputField.text) == false)
+            GameManager.Instance.SaveCurrentScore(nameInputField.text);
     }
 }

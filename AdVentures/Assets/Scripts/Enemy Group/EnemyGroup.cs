@@ -8,7 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyGroupAttack))]
 public class EnemyGroup : MonoBehaviour
 {
-    public int SpawnNumber { get; private set; }
+    // public int SpawnNumber;
+    public int SpawnNumber;
 
     [SerializeField]
     private int maxMovesToMake = 10;
