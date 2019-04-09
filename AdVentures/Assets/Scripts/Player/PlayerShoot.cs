@@ -79,6 +79,11 @@ public class PlayerShoot : MonoBehaviour, IShotLocations
 
     #region Public Methods
 
+    public void IncreaseShotSpeed()
+    {
+        shotThreshold *= .9f;
+    }
+
     public Transform Left()
     {
         return left;

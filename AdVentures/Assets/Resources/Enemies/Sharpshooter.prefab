@@ -11,6 +11,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sharpshooter
       objectReference: {fileID: 0}
+    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: healthData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: enemyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: healthData.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: healthData.Array.data[1].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 470d4b2ec674cc843836b9ea70c8d743, type: 2}
+    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
+        type: 3}
+      propertyPath: scoreValue
+      value: 175
+      objectReference: {fileID: 0}
     - target: {fileID: 4139991789519620, guid: 3abd36055c15d0b4192fe9d7c67653ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -55,35 +80,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: healthData.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: enemyType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: healthData.Array.data[1].sprite
-      value: 
-      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: healthData.Array.data[1].material
-      value: 
-      objectReference: {fileID: 2100000, guid: 470d4b2ec674cc843836b9ea70c8d743, type: 2}
-    - target: {fileID: 6595654545359148982, guid: 3abd36055c15d0b4192fe9d7c67653ec,
-        type: 3}
-      propertyPath: scoreValue
-      value: 175
-      objectReference: {fileID: 0}
     - target: {fileID: 5483906194838991119, guid: 3abd36055c15d0b4192fe9d7c67653ec,
         type: 3}
       propertyPath: shotForce
-      value: 400
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 2889362309755973401, guid: 3abd36055c15d0b4192fe9d7c67653ec,
         type: 3}

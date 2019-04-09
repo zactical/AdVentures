@@ -40,6 +40,8 @@ public class LootManager : MonoBehaviour
     {
         if (possibleLoot.Count <= 0)
         {
+            // set sprite to random staff for each points loot drop (so it isn't always the same person)
+            pointsOnlyLoot.staff = staffMembers[Random.Range(0, staffMembers.Count)];
             DoSpawnLoot(pointsOnlyLoot);
             return;
         }
@@ -81,6 +83,9 @@ public class LootManager : MonoBehaviour
         var staffCopy = staffMembers.ToList();
         foreach (var loot in discoveredLoot)
         {
+            if (staffCopy.Count == 0)
+                staffCopy = staffMembers.ToList();
+
             var randomUnusedStaff = staffCopy[Random.Range(0, staffCopy.Count)];
             loot.staff = randomUnusedStaff;
 

@@ -34,6 +34,7 @@ public class MoveToTarget : MonoBehaviour
 
         if (Vector3.Distance(transform.position, targetPosition) < closenessThreshold)
         {
+            canMove = false;
             if (onFinishMovingCallback != null && hasCalledCallback == false)
             {
                 hasCalledCallback = true;

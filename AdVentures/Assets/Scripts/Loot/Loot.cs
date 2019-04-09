@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -12,6 +13,7 @@ public class Loot : PooledMonoBehaviour
     private SpriteRenderer sr;
     private MoveToTarget moveToTarget;
     private Vector3 defaultScale;
+    private float defaultGravity;
 
     public LootType LootType => lootType;
 
@@ -21,6 +23,7 @@ public class Loot : PooledMonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         moveToTarget = GetComponent<MoveToTarget>();
         defaultScale = transform.localScale;
+        defaultGravity = rb.gravityScale;
     }
 
     public void SetLootType(LootType lootType)
@@ -59,6 +62,11 @@ public class Loot : PooledMonoBehaviour
             lootGrabber.PickUpLoot(this);
 
         transform.localScale = defaultScale;
+        SetGravityScale(defaultGravity);
+
+        if (LootType.Points > 0)
+            UIManager.Instance.CreateActionText(transform.position, LootType.Points);
+
         ReturnToPool();
     }
 }

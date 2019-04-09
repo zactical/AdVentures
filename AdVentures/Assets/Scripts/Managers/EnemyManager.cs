@@ -75,6 +75,7 @@ public class EnemyManager : MonoBehaviour {
             GameManager.Instance.GameOver(true);
         else
         {
+            UIManager.Instance.UpdateWaveText(spawnCounter);
             SpawnEnemies(group);
         }
     }

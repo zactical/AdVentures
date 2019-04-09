@@ -10,7 +10,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerImmunity))]
 [RequireComponent(typeof(PlayerLoot))]
 public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
-{   
+{
+    [SerializeField]
+    private bool debugForceImmunity;
 
     // other player systems
     private PlayerInput playerInput;
@@ -47,13 +49,15 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
     {
         if (upgrade == GenericUpgradeEnum.Projectile)
             playerProjectileController.AddProjectile(expireInSeconds);
+        if (upgrade == GenericUpgradeEnum.ShotSpeed)
+            playerShoot.IncreaseShotSpeed();
         else if (upgrade == GenericUpgradeEnum.Immunity)
             playerImmunity.SetImmunity(expireInSeconds ?? 0);
     }
 
     public void TakeDamage(int amount)
     {
-        if (playerImmunity.IsImmune)
+        if (playerImmunity.IsImmune || debugForceImmunity)
             return;
 
         animator.SetTrigger("KillPlayer");

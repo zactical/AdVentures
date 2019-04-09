@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,9 +11,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private AlertPanel alertPanel;
     [SerializeField]
-    private Transform alertStartingLocation;
-
-    [SerializeField]
     private GameOver gameOverScreen;
     [SerializeField]
     private ScoreText scoreText;
@@ -20,6 +18,14 @@ public class UIManager : MonoBehaviour
     private HighScoreMenu highScoreMenu;
     [SerializeField]
     private ProgressionMeter progressionMeter;
+    [SerializeField]
+    private TextMeshProUGUI waveText;
+    [SerializeField]
+    private InstructionPanel instructionPanel;
+    [SerializeField]
+    private PopUpActionText popupActionText;
+
+    private Vector3 alertPosition;
 
     private void Awake()
     {
@@ -31,14 +37,18 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        alertPosition = Camera.main.ViewportToWorldPoint(new Vector3(1, .25f, 0));
+        alertPosition.z = 0;
         SetProgression(0);
-        var alertPool = Pool.GetPool(alertPanel, alertStartingLocation);
-        alertPool.WarmPool();        
+        var alertPool = Pool.GetPool(alertPanel, alertPosition);
+        alertPool.WarmPool();
+
+        StartCoroutine(HideInstructionPanelAfterSeconds(2));
     }
 
     public void SetAlert(LootType loot)
     {
-        var newAlert = alertPanel.Get<AlertPanel>(alertStartingLocation.transform.position, Quaternion.identity);
+        var newAlert = alertPanel.Get<AlertPanel>(alertPosition, Quaternion.identity);
         newAlert.TriggerAlert(loot);
     }
 
@@ -48,15 +58,29 @@ public class UIManager : MonoBehaviour
         gameOverScreen.Show(score, text);
     }
 
+    private IEnumerator HideInstructionPanelAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        instructionPanel.Toggle();
+    }
+
     public void UpdateScore(int newScore)
     {
         scoreText.UpdateScore(newScore);
     }
 
+    public void UpdateWaveText(int waveNumber)
+    {
+        waveText.text = string.Format("Wave: {0}", waveNumber);
+    }
+
     public void SetProgression(float amount)
     {
         progressionMeter.UpdateAmount(amount);
+    }
 
-        //progressionMeter.GetComponent<Image>().fillAmount = amount;
+    public void CreateActionText(Vector3 position, int amount)
+    {
+        popupActionText.Get<PopUpActionText>(position, Quaternion.identity).SetScoreText(amount);
     }
 }

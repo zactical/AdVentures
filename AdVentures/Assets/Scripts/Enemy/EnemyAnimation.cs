@@ -11,11 +11,13 @@ public class EnemyAnimation : MonoBehaviour
     {
         enemy = GetComponentInParent<Enemy>();
         physicsAnimator = GetComponentInChildren<Animator>();
+        physicsAnimator.keepAnimatorControllerStateOnDisable = true;
     }
 
     private void OnEnable()
     {
         StopAllCoroutines();
+        transform.localPosition = new Vector3(0, 0, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -24,6 +26,12 @@ public class EnemyAnimation : MonoBehaviour
 
         if (damageableObject != null)
         {
+           // physicsAnimator.
+            physicsAnimator.SetTrigger("exit");
+            physicsAnimator.ResetTrigger("flyAwayLeft");
+            physicsAnimator.ResetTrigger("flyAwayRight");
+            physicsAnimator.Update(Time.deltaTime);
+            StopAllCoroutines();
             damageableObject.TakeDamage(1);
             enemy.Kill(true);
         }
@@ -40,6 +48,11 @@ public class EnemyAnimation : MonoBehaviour
 
     public void OnFlyAwayFinished()
     {
+        physicsAnimator.SetTrigger("exit");
+        physicsAnimator.ResetTrigger("flyAwayLeft");
+        physicsAnimator.ResetTrigger("flyAwayRight");
+        physicsAnimator.Update(Time.deltaTime);
+        StopAllCoroutines();
         enemy.Kill(false);
     }
 

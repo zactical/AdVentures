@@ -11,6 +11,11 @@ public class Pool : MonoBehaviour
 
     public static Pool GetPool(PooledMonoBehaviour prefab, Transform poolLocation = null, GameObject poolParent = null)
     {
+        return GetPool(prefab, poolLocation == null ? new Vector3() : poolLocation.position, poolParent);
+    }
+
+    public static Pool GetPool(PooledMonoBehaviour prefab, Vector3 poolLocation, GameObject poolParent = null)
+    {
         if (pools.ContainsKey(prefab))
             return pools[prefab];
 
@@ -19,8 +24,7 @@ public class Pool : MonoBehaviour
         if (poolParent != null)
             pool.gameObject.transform.SetParent(poolParent.transform, false);
 
-        if (poolLocation != null)
-            pool.gameObject.transform.position = poolLocation.position;
+        pool.gameObject.transform.position = poolLocation;
 
         pool.prefab = prefab;
 

@@ -101,6 +101,7 @@ public class EnemyGroup : MonoBehaviour
 
         if (currentActiveEnemies <= 0)
         {
+            enemies.Clear();
             enemyManager.RemoveActiveGroup(this);
             enemyManager.SpawnNextGroup();
             Destroy(gameObject);
