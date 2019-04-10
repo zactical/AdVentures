@@ -19,6 +19,6 @@ MonoBehaviour:
   projectileUpgrade: 0
   genericUpgrade: 0
   upgradeDuration: 0
-  progressionAmount: 2
+  progressionAmount: 3
   staff: {fileID: 0}
   AdditionalPickupMessage: 

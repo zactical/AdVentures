@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 5483906194838991119}
   - component: {fileID: 5823847811311157770}
   - component: {fileID: 2889362309755973401}
+  - component: {fileID: 441336543845563973}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialPoolSize: 50
   enemyType: 0
+  scoreValue: 50
   itemToSpawn: {fileID: 8562747392902324348, guid: d8a0c26440872be4c80e355c1542a034,
     type: 3}
 --- !u!114 &5483906194838991119
@@ -173,6 +175,21 @@ MonoBehaviour:
   visualData:
   - sprite: {fileID: 21300000, guid: 486a02748df92a54f87b934813858be9, type: 3}
     material: {fileID: 2100000, guid: 84b959409ffec8649b1075471034b405, type: 2}
+--- !u!114 &441336543845563973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890959211393806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c97369e60c21224f8f54003975d0520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  timeToTarget: 3
+  closenessThreshold: 0.1
 --- !u!1 &3956658845608350900
 GameObject:
   m_ObjectHideFlags: 0
