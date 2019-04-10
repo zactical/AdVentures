@@ -51,7 +51,8 @@ public class EnemyManager : MonoBehaviour {
     {
         if (inActiveGroups.Contains(group))
             inActiveGroups.Remove(group);
-
+        
+        lastMoved = 0;
         activeGroups.Add(group);
         group.ActivateGroup();
     }

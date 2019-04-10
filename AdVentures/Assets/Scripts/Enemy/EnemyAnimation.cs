@@ -7,17 +7,19 @@ public class EnemyAnimation : MonoBehaviour
     private Enemy enemy;
     private Animator physicsAnimator;
 
+    private int exitAnimationHash;
+
     private void Awake()
     {
         enemy = GetComponentInParent<Enemy>();
         physicsAnimator = GetComponentInChildren<Animator>();
         physicsAnimator.keepAnimatorControllerStateOnDisable = true;
+        exitAnimationHash = Animator.StringToHash("exit");
     }
 
     private void OnEnable()
     {
-        StopAllCoroutines();
-        transform.localPosition = new Vector3(0, 0, 0);
+        physicsAnimator.SetTrigger(exitAnimationHash);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -26,12 +28,7 @@ public class EnemyAnimation : MonoBehaviour
 
         if (damageableObject != null)
         {
-           // physicsAnimator.
-            physicsAnimator.SetTrigger("exit");
-            physicsAnimator.ResetTrigger("flyAwayLeft");
-            physicsAnimator.ResetTrigger("flyAwayRight");
-            physicsAnimator.Update(Time.deltaTime);
-            StopAllCoroutines();
+            physicsAnimator.SetTrigger(exitAnimationHash);
             damageableObject.TakeDamage(1);
             enemy.Kill(true);
         }
@@ -40,19 +37,12 @@ public class EnemyAnimation : MonoBehaviour
     public void FlyAway(float delay)
     {
         var triggerToSet = Random.Range(0, 100) > 50 ? "flyAwayLeft" : "flyAwayRight";
-
-      //  var delay = Random.Range(0f, 1f);
-
         StartCoroutine(SetTriggerAfterDelay(delay, triggerToSet));
     }
 
     public void OnFlyAwayFinished()
     {
-        physicsAnimator.SetTrigger("exit");
-        physicsAnimator.ResetTrigger("flyAwayLeft");
-        physicsAnimator.ResetTrigger("flyAwayRight");
-        physicsAnimator.Update(Time.deltaTime);
-        StopAllCoroutines();
+        physicsAnimator.SetTrigger(exitAnimationHash);
         enemy.Kill(false);
     }
 

@@ -24,7 +24,10 @@ public class EnemyGroupRow : MonoBehaviour
         {
             for (int i = 0; i < datum.Amount; i++)
             {
-                var child = GetEnemy(enemyManager, GetEnemyPrefab(datum.EnemyType, enemyManager), new Vector3(startingXposition + totalSpawned, transform.position.y, 0));
+                var targetEndLocation = new Vector3(startingXposition + totalSpawned, transform.position.y, 0);
+                var spawnLocation = new Vector3(targetEndLocation.x, targetEndLocation.y + 8, 0);
+                var child = GetEnemy(enemyManager, GetEnemyPrefab(datum.EnemyType, enemyManager), spawnLocation);
+                child.OnSpawn(targetEndLocation);
 
                 if (updateChildGraphicsOnSpawn)
                     child.GetComponent<IEnemyGraphicUpdater>()?.UpdateGraphics();

@@ -38,6 +38,7 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
     {
         playerShoot.ToggleShootingEnabled(false);
         animator.SetTrigger("PlayerSpawn");
+        AudioManager.Instance.PlayerSpawn();
     }
 
     public void AddWeapon(WeaponUpgradeTypeEnum type, float? expireInSeconds = null)
@@ -64,12 +65,14 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
         playerShoot.ToggleShootingEnabled(false);
         playerMovement.CanMove = false;
         GameManager.Instance.GameOver();
+        AudioManager.Instance.GameOver();
     }
 
     public void PickUpLoot(Loot loot)
     {
         if (loot.LootType.progressionAmount > 0)
         {
+            AudioManager.Instance.ProgressionLoot();
             playerLoot.AddProgression(loot.LootType.progressionAmount);
             return;
         }
@@ -81,6 +84,7 @@ public class Player : MonoBehaviour, ITakeDamage, IGrabLoot
         if (loot.LootType.Points > 0)
             GameManager.Instance.AddToScore(loot.LootType.Points);
 
+        AudioManager.Instance.UpgradeLoot();
         UIManager.Instance.SetAlert(loot.LootType);
     }
 

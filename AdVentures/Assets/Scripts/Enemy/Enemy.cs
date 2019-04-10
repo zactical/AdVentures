@@ -24,6 +24,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
     private IEnemyGraphicUpdater enemyGraphics;
     private IEnemyAttack enemyAttack;
     private IEnemyMove enemyMove;
+    private MoveToTarget moveToTarget;
     
 
     // public accessors
@@ -36,7 +37,8 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
         deathEvents = GetComponentsInChildren<IDeathEvent>().ToList();
         enemyGraphics = GetComponent<IEnemyGraphicUpdater>();
         enemyAttack = GetComponent<IEnemyAttack>();
-        enemyMove = GetComponent<IEnemyMove>();        
+        enemyMove = GetComponent<IEnemyMove>();
+        moveToTarget = GetComponent<MoveToTarget>();
         StartingColumn = Mathf.RoundToInt(transform.position.x);
     }
 
@@ -80,6 +82,7 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
         if (awardLoot)
         {
             GameManager.Instance.AddToScore(scoreValue);
+            AudioManager.Instance.EnemyHit();
 
             if (lootOnKill != null)
             {
@@ -92,6 +95,13 @@ public class Enemy : PooledMonoBehaviour, ITakeDamage
 
         group.ReportEnemyDeath(this);
         ReturnToPool();
+    }
+
+    public void OnSpawn(Vector3 target)
+    {
+        moveToTarget.SetTarget(target);
+        moveToTarget.timeToTarget = 2;
+        moveToTarget.StartMoving(delay: Random.Range(0, 0.5f));
     }
     
 

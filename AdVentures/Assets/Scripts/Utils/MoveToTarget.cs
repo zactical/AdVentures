@@ -43,12 +43,23 @@ public class MoveToTarget : MonoBehaviour
         }
     }
 
-    public void StartMoving(Action callback = null)
+    public void StartMoving(Action callback = null, float delay = 0)
     {
         onFinishMovingCallback = callback;
-        startingPosition = gameObject.transform;
-        canMove = true;
+        startingPosition = gameObject.transform;        
         hasCalledCallback = false;
+
+        if (delay == 0)
+            canMove = true;
+        else
+            StartCoroutine(DoMoveAfterDelay(delay));
+    }
+
+    private IEnumerator DoMoveAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        canMove = true;
     }
 
     public void SetTarget(Vector3 v3Target)
