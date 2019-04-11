@@ -11,6 +11,11 @@ public class InstructionPanel : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        Toggle();
+    }
+
     public void Toggle()
     {
         animator.SetTrigger("Fade");

@@ -69,9 +69,9 @@ public class UIManager : MonoBehaviour
         scoreText.UpdateScore(newScore);
     }
 
-    public void UpdateWaveText(int waveNumber)
+    public void UpdateWaveText(int waveNumber, int maxWaves)
     {
-        waveText.text = string.Format("Wave: {0}", waveNumber);
+        waveText.text = string.Format("Wave: {0}/{1}", waveNumber, maxWaves);
     }
 
     public void SetProgression(float amount)

@@ -23,6 +23,7 @@ public class EnemyManager : MonoBehaviour {
     private bool canSpawnNextGroup = true;
 
     private int spawnCounter;
+    private int maxWaves;
 
     private void Awake()
     {
@@ -31,6 +32,12 @@ public class EnemyManager : MonoBehaviour {
 
         PreWarmAllEnemyGroups();
         PreWarmAllEnemyTypes();        
+    }
+
+    private void Start()
+    {
+        maxWaves = enemyGroupPrefabs.Where(x => x.SpawnNumber > 0).Count();
+        UIManager.Instance.UpdateWaveText(1, maxWaves);
     }
 
     void Update() {
@@ -76,7 +83,7 @@ public class EnemyManager : MonoBehaviour {
             GameManager.Instance.GameOver(true);
         else
         {
-            UIManager.Instance.UpdateWaveText(spawnCounter);
+            UIManager.Instance.UpdateWaveText(spawnCounter, maxWaves);
             SpawnEnemies(group);
         }
     }
