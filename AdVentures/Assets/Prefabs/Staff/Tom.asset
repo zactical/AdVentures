@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Tom
   m_EditorClassIdentifier: 
   Image: {fileID: 21300000, guid: 11ee32292d2f4f6448dd3202b5d25a60, type: 3}
-  Name: Tom Brune
+  Name: Tom
